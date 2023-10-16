@@ -1,34 +1,54 @@
-import { useEffect, useState } from "react";
-import { productDTO } from "../Products/products.model";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prefer-const */
+import { Component } from "react";
 import CardProduct from "./CardProduct";
-import axios, { AxiosResponse } from "axios";
 import { urlProduct } from "../endpoints";
+import Catalogue from './Catalogue';
 
-export default function Promotion() {
-    const [promotionsProduct, setPromotionsProduct] = useState<productDTO[]>();
-    useEffect(() => {
-        setInterval(() => axios.get(urlProduct)
-            .then((response: AxiosResponse<productDTO[]>) => {
-                console.log(response.data);
-                setPromotionsProduct(response.data);
-            }), 5000) });
-    
-    return (
+export default class Promotion extends Component {
+    static displayName = Promotion.name;
+    constructor(props:any) {
+        super(props);
+        this.state = { promotionProducts: [], loading: true };
+    }
+    componentDidMount() {
+        this.listProductsData();
 
+    }
+    componentDidUpdate() {
+        this.listProductsData();
+    }
+    static renderProductsTable(promotionProducts: any[]) {
+
+        return (
             <>
-            <h3>Produits en promotion</h3>
-            
-                
-                {promotionsProduct?.map(product =>
-                    <CardProduct key={product.idProduct}
-                        title={product.productName}
-                        description={product.descriptionProduct}
-                        price={product.price}
-                        image={product.image}
-                        category={product.cat} />)}
-            
-                
+                {
+                    promotionProducts.map(product =>
+                        <CardProduct key={product.idProduct}
+                            title={product.productName}
+                            description={product.descriptionProduct}
+                            price={product.price}
+                            image={product.image}
+                            category={product.category} />)
+                }
             </>
-       
-    );
+        );
+    }
+    render() {
+        let contents = this.state.loading
+            ? <p><em>En chargement...</em></p>
+            : Catalogue.renderProductsTable(this.state.promotionProducts);
+        return (
+            <>
+                <h3>Catalogue des produits</h3>
+                {contents}
+            </>
+        )
+    }
+    async listProductsData() {
+        const response = await fetch(urlProduct);
+        const data = await response.json();
+        this.setState({ promotionProducts: data, loading: false });
+
+    }
 }

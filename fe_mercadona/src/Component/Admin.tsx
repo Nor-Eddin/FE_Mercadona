@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import './NavMenu.css';
+import ProductsList from '../Products/ProductsList';
 
 
 export default function Admin() {
@@ -8,6 +9,7 @@ export default function Admin() {
     return (
         <>
             <h1>Gestion des produits</h1>
+            <ProductsList props=""/>
             
             <Button className="btn btn-light ">Ajouter un nouveau produit</Button>
             <Button className="btn btn-light ">Ajouter une nouvelle categorie</Button>
