@@ -1,0 +1,42 @@
+﻿a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+#sidebar{
+    color:darkgreen;
+}
+#sidebar a.active {
+    color: darkgreen;
+    font-weight:700;
+    border:2px solid green;
+    border-radius:10px;
+    padding-left:10px;
+    padding-right:10px;
+}
+#fontTitle{
+    font-family:cursive;
+    color:darkgreen;
+    font-size:1.7rem;
+}
+#tableStyle{
+    width:auto;
+    margin-left:10px;
+}
+.buttonUpdate {
+    border:1px solid green;
+    
+}
