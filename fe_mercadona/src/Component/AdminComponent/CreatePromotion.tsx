@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export default function CreateCategory() {
+export default function CreatePromotion() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -12,7 +12,7 @@ export default function CreateCategory() {
     return (
         <>
             <Button variant="light" onClick={handleShow} >
-                Ajouter une nouvelle categorie
+                Ajouter une nouvelle promotion
             </Button>
 
             <Modal show={show} onHide={handleClose}>

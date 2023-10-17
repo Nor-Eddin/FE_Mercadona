@@ -5,6 +5,9 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import './NavMenu.css';
 import { Component } from 'react';
 import { urlProduct } from '../endpoints';
+import CreateProduct from './AdminComponent/CreateProducts';
+import CreateCategory from './AdminComponent/CreateCategories';
+import CreatePromotion from './AdminComponent/CreatePromotion';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -51,9 +54,9 @@ export default class Admin extends Component {
         return (
             <>
                 <h1>Gestion des produits</h1>
-                <Button className="btn btn-light ">Ajouter un nouveau produit</Button>
-                <Button className="btn btn-light ">Ajouter une nouvelle categorie</Button>
-                <Button className="btn btn-light ">Ajouter une nouvelle promotion</Button>
+                <CreateProduct />
+                <CreateCategory />
+                <CreatePromotion/>
                 <table id="tableStyle" className="hover responsive table table-striped" >
                     <thead>
                         <tr>
