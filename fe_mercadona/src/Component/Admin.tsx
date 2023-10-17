@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Spinner } from 'react-bootstrap';
 import './NavMenu.css';
 import { Component } from 'react';
 import { urlProduct } from '../endpoints';
@@ -49,7 +49,7 @@ export default class Admin extends Component {
 
     render() {
         let contents = this.state.loading
-            ? <p><em>En chargement...</em></p>
+            ? <p><Spinner animation="border" /><em>En chargement...</em></p>
             : Admin.renderListTable(this.state.listProducts);
         return (
             <>

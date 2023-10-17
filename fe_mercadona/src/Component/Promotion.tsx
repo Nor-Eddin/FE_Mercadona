@@ -4,6 +4,7 @@ import { Component } from "react";
 import CardProduct from "./CardProduct";
 import { urlProduct } from "../endpoints";
 import Catalogue from './Catalogue';
+import { Spinner } from "react-bootstrap";
 
 export default class Promotion extends Component {
     static displayName = Promotion.name;
@@ -36,7 +37,7 @@ export default class Promotion extends Component {
     }
     render() {
         let contents = this.state.loading
-            ? <p><em>En chargement...</em></p>
+            ? <p><Spinner animation="border" /><em>En chargement...</em></p>
             : Catalogue.renderProductsTable(this.state.promotionProducts);
         return (
             <>

@@ -3,6 +3,7 @@
 import { Component } from 'react';
 import {urlProduct}from '../endpoints'
 import CardProduct from "./CardProduct";
+import { Spinner } from 'react-bootstrap';
 
 
 export default class Catalogue extends Component {
@@ -36,7 +37,7 @@ export default class Catalogue extends Component {
     }
     render(){
         let contents = this.state.loading
-            ? <p><em>En chargement...</em></p>
+            ? <p><Spinner animation="border" /><em>En chargement...</em></p>
             : Catalogue.renderProductsTable(this.state.catalogueProducts);
     return (
     <>
