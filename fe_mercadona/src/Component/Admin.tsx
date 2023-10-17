@@ -9,7 +9,7 @@ export default function Admin() {
     return (
         <>
             <h1>Gestion des produits</h1>
-            <ProductsList props=""/>
+            
             
             <Button className="btn btn-light ">Ajouter un nouveau produit</Button>
             <Button className="btn btn-light ">Ajouter une nouvelle categorie</Button>
@@ -48,3 +48,5 @@ export default function Admin() {
         </>
     );
 }
+
+
