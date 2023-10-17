@@ -30,7 +30,7 @@ export default class Catalogue extends Component {
                             description={product.descriptionProduct}
                             price={product.price}
                             image={product.image}
-                            category={product.category} />)
+                            category={product.catId} />)
                 }
             </>
         );
