@@ -29,10 +29,7 @@ export default function CreateProduct() {
             descriptionProduct: target.descriptionProduct.value,
             price: target.price.value,
             image: target.image.value,
-            cat: {
-                "catId": 0,
-                "categoryName": "string"
-            },
+            catId: target.category.value,
         };
         console.log(data);
         const options: RequestInit = {
@@ -57,28 +54,26 @@ export default function CreateProduct() {
                 <Form onSubmit={onSubmitProduct }>
                 <Modal.Body>
                     
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <label htmlFor="productName">Nom du produit</label>
-                            <input id="productName" type="text" placeholder="Nom du produit" autoFocus/>
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="productName">Nom du produit</Form.Label><br />
+                            <Form.Control id="productName" type="text" placeholder="Nom du produit" autoFocus required/>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <label htmlFor="descriptionProduct">Description du produit</label>
-                            <input id="descriptionProduct" type="textarea"  />
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="descriptionProduct">Description du produit</Form.Label><br />
+                            <Form.Control id="descriptionProduct" type="textarea" required />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <label htmlFor="category">Categorie du produit</label>
-                            <input id="category" type="number" placeholder="Nom du produit" autoFocus />
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="category">Categorie du produit</Form.Label><br />
+                            <Form.Control id="category" type="number" placeholder="Nom du produit" autoFocus required />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <label htmlFor="price">Prix du produit</label>
-                            <input id="price" type="number" placeholder="Prix du produit" autoFocus />
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="price">Prix du produit</Form.Label><br />
+                            <Form.Control id="price" type="number" placeholder="Prix du produit" autoFocus required />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <label htmlFor="image">Photo du produit</label>
-                            <input id="image" type="text" placeholder="Photo du produit" autoFocus />
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="image">Photo du produit</Form.Label><br/>
+                            <Form.Control id="image" type="text" placeholder="Photo du produit" autoFocus required />
                         </Form.Group>
-                        
-                    
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
