@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import axios, { AxiosResponse } from "axios";
-import { Component, useEffect, useState } from 'react';
-import { productDTO } from '../Products/products.model';
+import { Component } from 'react';
 import {urlProduct}from '../endpoints'
 import CardProduct from "./CardProduct";
+import { Spinner } from 'react-bootstrap';
 
 
 export default class Catalogue extends Component {
     static displayName = Catalogue.name;
-    constructor(props) {
+    constructor(props:any) {
         super(props);
         this.state = { catalogueProducts: [], loading: true };
     }
@@ -16,7 +16,10 @@ export default class Catalogue extends Component {
         this.listProductsData();
     
     }
-    static renderProductsTable(catalogueProducts) {
+    componentDidUpdate(){
+        this.listProductsData();
+    }
+    static renderProductsTable(catalogueProducts: any[]) {
 
         return (
             <>
@@ -27,14 +30,14 @@ export default class Catalogue extends Component {
                             description={product.descriptionProduct}
                             price={product.price}
                             image={product.image}
-                            category={product.category} />)
+                            category={product.catId} />)
                 }
             </>
         );
     }
     render(){
         let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See  for more details.</em></p>
+            ? <p><Spinner animation="border" /><em>En chargement...</em></p>
             : Catalogue.renderProductsTable(this.state.catalogueProducts);
     return (
     <>
@@ -50,5 +53,6 @@ export default class Catalogue extends Component {
 
     }
 }
+
 
 

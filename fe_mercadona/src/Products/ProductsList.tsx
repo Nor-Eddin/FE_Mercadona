@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
-import { urlProduct } from "../endpoints";
 import GenericList from "../Utils/GenericList";
-import IndividualProduct from "./IndividualProduct";
 import { productDTO } from "./products.model";
-import css from "./ProductsList.module.css"
 
 export default function ProductsList(props: productsListProps) {
     
