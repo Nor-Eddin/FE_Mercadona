@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, ButtonGroup, Spinner } from 'react-bootstrap';
 import './NavMenu.css';
 import { Component } from 'react';
-import { urlProduct } from '../endpoints';
+import { urlCategory, urlProduct, urlPromotion } from '../endpoints';
 import CreateProduct from './AdminComponent/CreateProducts';
 import CreateCategory from './AdminComponent/CreateCategories';
 import CreatePromotion from './AdminComponent/CreatePromotion';
@@ -13,17 +13,21 @@ export default class Admin extends Component {
     static displayName = Admin.name;
     constructor(props: any) {
         super(props);
-        this.state = { listProducts: [], loading: true };
+        this.state = { listProducts: [], listCategories: [], listPromotions: [], loading: true };
     }
     componentDidMount() {
         this.listProductsData();
+        this.listCategoriesData();
+        this.listPromotionsData();
 
     }
     componentDidUpdate() {
         this.listProductsData();
     }
-    static renderListTable(listProducts: any[]) {
-
+    static renderListTable(listProducts: any[],listCategories:any[]) {
+        let cat: any[];
+        cat = listCategories.map((c) => (cat = c.categoryName));
+        console.log(cat);
         return (
             <>
                 {
@@ -34,7 +38,7 @@ export default class Admin extends Component {
                             <td>{product.descriptionProduct}</td>
                             <td>{product.price}</td>
                             <td>{product.image}</td>
-                            <td>{product.category}</td>
+                            <td>{cat[product.catId]}</td>
                             <td>{product.promotion}</td>
                             <td  ><ButtonGroup className="buttonUpdate" >
                                 <Button className="btn btn-light ">Editer</Button>
@@ -50,7 +54,7 @@ export default class Admin extends Component {
     render() {
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Admin.renderListTable(this.state.listProducts);
+            : Admin.renderListTable(this.state.listProducts, this.state.listCategories);
         return (
             <>
                 <h1>Gestion des produits</h1>
@@ -80,6 +84,18 @@ export default class Admin extends Component {
         const response = await fetch(urlProduct);
         const data = await response.json();
         this.setState({ listProducts: data, loading: false });
+
+    }
+    async listCategoriesData() {
+        const response = await fetch(urlCategory);
+        const data = await response.json();
+        this.setState({ listCategories: data, loading: false });
+
+    }
+    async listPromotionsData() {
+        const response = await fetch(urlPromotion);
+        const data = await response.json();
+        this.setState({ listPromotions: data, loading: false });
 
     }
 }
