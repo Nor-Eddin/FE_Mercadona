@@ -38,7 +38,7 @@ export default class Promotion extends Component {
     render() {
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Catalogue.renderProductsTable(this.state.promotionProducts);
+            : Promotion.renderProductsTable(this.state.promotionProducts);
         return (
             <>
                 <h3>Catalogue des produits</h3>
