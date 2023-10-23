@@ -59,29 +59,33 @@ export default class Admin extends Component {
         return (
             <>
                 <Authorized
-                    authorized={<>Vous avez acces pour gerer les produits</>}
-                    notAuthorized={<>Vous n'avez pas les acces</> }
+                    authorized={
+                        <>
+                            <h1>Gestion des produits</h1>
+                            <CreateProduct />
+                            <CreateCategory />
+                            <CreatePromotion />
+                            <table id="tableStyle" className="hover responsive table table-striped" >
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nom du produit</th>
+                                        <th>Descriptions</th>
+                                        <th>Prix</th>
+                                        <th>Images</th>
+                                        <th>Categories</th>
+                                        <th>Promotions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {contents}
+                                </tbody>
+                            </table>
+                        </>}
+                    notAuthorized={<>Vous n'avez pas les acces</>}
+                    role="admin"
                 />
-                <h1>Gestion des produits</h1>
-                <CreateProduct />
-                <CreateCategory />
-                <CreatePromotion/>
-                <table id="tableStyle" className="hover responsive table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nom du produit</th>
-                            <th>Descriptions</th>
-                            <th>Prix</th>
-                            <th>Images</th>
-                            <th>Categories</th>
-                            <th>Promotions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {contents}
-                    </tbody>
-                </table>
+                
             </>
         );
     }
