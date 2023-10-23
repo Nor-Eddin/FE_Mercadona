@@ -8,6 +8,7 @@ import { urlCategory, urlProduct, urlPromotion } from '../endpoints';
 import CreateProduct from './AdminComponent/CreateProducts';
 import CreateCategory from './AdminComponent/CreateCategories';
 import CreatePromotion from './AdminComponent/CreatePromotion';
+import Authorized from '../Auth/Authorized';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -57,6 +58,10 @@ export default class Admin extends Component {
             : Admin.renderListTable(this.state.listProducts, this.state.listCategories);
         return (
             <>
+                <Authorized
+                    authorized={<>Vous avez acces pour gerer les produits</>}
+                    notAuthorized={<>Vous n'avez pas les acces</> }
+                />
                 <h1>Gestion des produits</h1>
                 <CreateProduct />
                 <CreateCategory />
