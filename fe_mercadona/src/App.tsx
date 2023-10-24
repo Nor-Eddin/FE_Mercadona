@@ -12,7 +12,8 @@ import NavMenu from './Component/NavMenu';
 export default function App() {
 
     const [claims, setClaims] = useState<claim[]>([
-        { name: 'email', value: 'noreddinlam@gmail.com' }
+        { name: 'email', value: 'noreddinlam@gmail.com' },
+        { name: 'role', value: 'admin' }
     ]);
 
     return (
