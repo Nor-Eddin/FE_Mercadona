@@ -83,7 +83,7 @@ export default class Admin extends Component {
                             </table>
                         </>}
                     notAuthorized={<>Vous n'avez pas les acces</>}
-                    role="admin"
+
                 />
                 
             </>

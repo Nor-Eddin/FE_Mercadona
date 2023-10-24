@@ -20,7 +20,7 @@ export default function AuthForm(props: authFormProps) {
             })}
         >
 
-            <Form style={{ width: 300}}>
+            <Form style={{ width: 300}} >
                 <TextField field="email" displayName="Email" />
                 <TextField field="password" displayName="Password" type="password" />
                 <Button  type="submit">Envoyer</Button>

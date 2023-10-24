@@ -5,11 +5,17 @@ import {
 import './NavMenu.css';
 import { NavLink } from "react-router-dom";
 import Authorized from '../Auth/Authorized';
-import Register from '../Auth/Register';
-import Login from '../Auth/Login';
+import { logOut } from '../Auth/handleJWT';
+import { Button } from 'react-bootstrap';
+import { useContext } from 'react';
+import AuthenticationContext from '../Auth/AuthenticationContext';
 
 export default function NavMenu() {
-    
+
+    const { update, claims } = useContext(AuthenticationContext);
+    function getUserEmail() {
+        return claims.filter(x => x.name === "email")[0]?.value;
+    }
 
     return (
         <div>
@@ -26,7 +32,12 @@ export default function NavMenu() {
                     <Authorized
                         authorized={
                             <>
+                                <span className="nav-link">Bonjours, {getUserEmail()}</span>
                                 <NavLink className="navbar-brand" to="/Admin" >Admin</NavLink>
+                                <Button onClick={() => {
+                                    logOut();
+                                    update([]);
+                                }} className="nav-link btn btn-link">Log Out</Button>
 
                             </>}
                         notAuthorized={
@@ -34,7 +45,7 @@ export default function NavMenu() {
                                 <NavLink className="navbar-brand" to="/Login" >Login</NavLink>
                                 
                             </>}
-                        role="admin"
+
                     />
                             </Nav>
 

@@ -3,19 +3,20 @@ import { Routes, Route } from 'react-router-dom';
 import Catalogue from './Component/Catalogue';
 import Promotion from './Component/Promotion';
 import Admin from './Component/Admin'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { claim } from './Auth/auth.models';
 import AuthenticationContext from './Auth/AuthenticationContext';
 import NavMenu from './Component/NavMenu';
 import Login from './Auth/Login';
+import { getClaim } from './Auth/handleJWT';
 
 
 export default function App() {
 
-    const [claims, setClaims] = useState<claim[]>([
-        { name: 'email', value: 'noreddinlam@gmail.com' },
-        /*{ name: 'role', value: 'admin' }*/
-    ]);
+    const [claims, setClaims] = useState<claim[]>([]);
+    useEffect(() => {
+        setClaims(getClaim());
+    },[])
 
     return (
         <>

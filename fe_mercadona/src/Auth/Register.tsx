@@ -1,18 +1,24 @@
 import axios from "axios";
 import { authenticationResponse, userCredentials } from "./auth.models";
 import { urlAccounts } from "../endpoints";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import {  useNavigate } from 'react-router-dom';
 import AuthForm from "./AuthForm";
-import { FormikHelpers } from "formik";
+import { getClaim, saveToken } from "./handleJWT";
+import AuthenticationContext from "./AuthenticationContext";
 
 
 export default function Register() {
     const [errors, setErrors] = useState<string[]>([]);
+    const { update } = useContext(AuthenticationContext);
+    const navigate = useNavigate();
     async function register(credentiels: userCredentials) {
         try {
             const response = await axios
                 .post<authenticationResponse>(`${urlAccounts}/create`, credentiels);
-            console.log(response);
+            saveToken(response.data);
+            update(getClaim());
+            navigate('/');
         } catch(error) {
             /*setErrors(error.response.data);*/
         }
