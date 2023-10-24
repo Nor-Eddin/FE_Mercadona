@@ -19,13 +19,15 @@ export default function AuthForm(props: authFormProps) {
                 password:Yup.string().required('Ce champ est requis')
             })}
         >
-            <Form>
+
+            <Form style={{ width: 300}}>
                 <TextField field="email" displayName="Email" />
                 <TextField field="password" displayName="Password" type="password" />
                 <Button  type="submit">Envoyer</Button>
                 <Link className="btn btn-secondary" to="/">Annuler</Link>
-            </Form>
-        </Formik>
+                </Form>
+            
+            </Formik>
     )
 }
 

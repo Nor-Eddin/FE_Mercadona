@@ -7,13 +7,14 @@ import { useState } from 'react';
 import { claim } from './Auth/auth.models';
 import AuthenticationContext from './Auth/AuthenticationContext';
 import NavMenu from './Component/NavMenu';
+import Login from './Auth/Login';
 
 
 export default function App() {
 
     const [claims, setClaims] = useState<claim[]>([
         { name: 'email', value: 'noreddinlam@gmail.com' },
-        { name: 'role', value: 'admin' }
+        /*{ name: 'role', value: 'admin' }*/
     ]);
 
     return (
@@ -23,7 +24,8 @@ export default function App() {
             <Routes>                
               <Route path="/" element={<Catalogue />} />
               <Route path="/Promotion" element={<Promotion />} />
-              <Route path="/Admin" element={<Admin />} />            
+              <Route path="/Admin" element={<Admin />} />
+              <Route path="/Login" element={<Login />} />
             </Routes>
             </AuthenticationContext.Provider>
         </>

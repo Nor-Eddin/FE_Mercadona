@@ -6,6 +6,7 @@ import './NavMenu.css';
 import { NavLink } from "react-router-dom";
 import Authorized from '../Auth/Authorized';
 import Register from '../Auth/Register';
+import Login from '../Auth/Login';
 
 export default function NavMenu() {
     
@@ -28,7 +29,11 @@ export default function NavMenu() {
                                 <NavLink className="navbar-brand" to="/Admin" >Admin</NavLink>
 
                             </>}
-                        notAuthorized={<>Vous n'avez pas les acces, il faut vous logger</>}
+                        notAuthorized={
+                            <>
+                                <NavLink className="navbar-brand" to="/Login" >Login</NavLink>
+                                
+                            </>}
                         role="admin"
                     />
                             </Nav>
