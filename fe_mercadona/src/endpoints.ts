@@ -5,3 +5,4 @@ const baseURL ='https://localhost:7054/api'
 export const urlProduct = `${baseURL}/products`;
 export const urlCategory = `${baseURL}/categories`;
 export const urlPromotion = `${baseURL}/promotions`;
+export const urlAccounts = `${baseURL}/accounts`;

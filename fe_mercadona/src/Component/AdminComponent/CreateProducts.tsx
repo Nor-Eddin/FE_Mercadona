@@ -17,9 +17,12 @@ interface CustomForm extends HTMLFormElement {
 
 export default function CreateProduct() {
     const [show, setShow] = useState(false);
+    const [hide, setHide] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleHide = () => setHide(true);
+    const handleNotHide = () => setHide(false);
     const onSubmitProduct = (event: FormEvent<CustomForm>) => {
         event.preventDefault();
         const target = event.currentTarget.elements;
@@ -31,13 +34,14 @@ export default function CreateProduct() {
             image: target.image.value,
             catId: target.category.value,
         };
-        console.log(data);
         const options: RequestInit = {
             method: "POST",
             body: JSON.stringify(data),
             headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
         }
-        fetch(urlProduct, options);
+        fetch(urlProduct, options)
+            .then(handleClose);
+
 
     }
 
@@ -47,14 +51,14 @@ export default function CreateProduct() {
                 Ajouter un nouveau produit
             </Button>
 
-            <Modal show={show} >
-                <Modal.Header closeButton>
+            <Modal show={show}  >
+                <Modal.Header>
                     <Modal.Title>Identification du produit</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={onSubmitProduct }>
-                <Modal.Body>
+                <Form onSubmit={onSubmitProduct} >
+                    <Modal.Body onClick={handleNotHide}>
                     
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3"  >
                             <Form.Label htmlFor="productName">Nom du produit</Form.Label><br />
                             <Form.Control id="productName" type="text" placeholder="Nom du produit" autoFocus required/>
                         </Form.Group>
@@ -75,13 +79,28 @@ export default function CreateProduct() {
                             <Form.Control id="image" type="text" placeholder="Photo du produit" autoFocus required />
                         </Form.Group>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Annuler
-                        </Button>
-                        <Button variant="primary" type="submit" >
-                            Ajouter
-                        </Button>
+                    <Modal.Footer>
+                        {
+                            hide ?
+                                <>
+                                    <div ><strong>Valider votre choix?   </strong></div>
+                                    <Button variant="secondary" onClick={handleNotHide}>
+                                        Non
+                                    </Button>
+                                    <Button variant="primary" type="submit" >
+                                        Oui
+                                        </Button>
+                                </> :
+                                <>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Annuler
+                                    </Button>
+                                    <Button variant="primary"  onClick={handleHide} >
+                                        Ajouter
+                                    </Button>
+                                </>
+                         }
+                    
                         
                     </Modal.Footer>
                 </Form>

@@ -8,6 +8,11 @@ import { urlCategory, urlProduct, urlPromotion } from '../endpoints';
 import CreateProduct from './AdminComponent/CreateProducts';
 import CreateCategory from './AdminComponent/CreateCategories';
 import CreatePromotion from './AdminComponent/CreatePromotion';
+import Authorized from '../Auth/Authorized';
+import { Link } from 'react-router-dom';
+import DeleteCategory from './AdminComponent/DeleteCategory';
+import DeletePromotion from './AdminComponent/DeletePromotion';
+import EditProduct from './AdminComponent/EditProducts';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -40,11 +45,21 @@ export default class Admin extends Component {
                             <td>{product.image}</td>
                             <td>{cat[product.catId]}</td>
                             <td>{product.promotion}</td>
-                            <td  ><ButtonGroup className="buttonUpdate" >
-                                <Button className="btn btn-light ">Editer</Button>
-                                <Button className="btn btn-light ">Ajouter une promotion</Button>
-                                <Button className="btn btn-danger light">Suprimer</Button>
-                            </ButtonGroup></td>
+                            <td  >
+                                <ButtonGroup className="buttonUpdate" >
+                                    <EditProduct
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                        descriptionProduct={product.descriptionProduct}
+                                        price={product.price}
+                                        image={product.image}
+                                        catId={cat[product.catId]}
+                                        promotion={product.promotion}
+                                    />
+                                    <Button className="btn btn-light ">Ajouter une promotion</Button>
+                                    <Button className="btn btn-danger light">Suprimer</Button>
+                                </ButtonGroup>
+                            </td>
                         </tr>)
                 }
             </>
@@ -57,26 +72,38 @@ export default class Admin extends Component {
             : Admin.renderListTable(this.state.listProducts, this.state.listCategories);
         return (
             <>
-                <h1>Gestion des produits</h1>
-                <CreateProduct />
-                <CreateCategory />
-                <CreatePromotion/>
-                <table id="tableStyle" className="hover responsive table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nom du produit</th>
-                            <th>Descriptions</th>
-                            <th>Prix</th>
-                            <th>Images</th>
-                            <th>Categories</th>
-                            <th>Promotions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {contents}
-                    </tbody>
-                </table>
+                <Authorized
+                    authorized={
+                        <>
+                            <h1>Gestion des produits</h1>
+                            <CreateProduct />
+                            <CreateCategory /><DeleteCategory/>
+                            <CreatePromotion /><DeletePromotion/>
+                            <table id="tableStyle" className="hover responsive table table-striped" >
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nom du produit</th>
+                                        <th>Descriptions</th>
+                                        <th>Prix</th>
+                                        <th>Images</th>
+                                        <th>Categories</th>
+                                        <th>Promotions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {contents}
+                                </tbody>
+                            </table>
+                        </>}
+                    notAuthorized={<>
+                        Vous n'etes pas les authorisations pour entrer<br />
+                        Seul l'administrateur peut y acceder<br />
+                            Si c'est le cas alors proceder au login ici : <Link className="navbar-brand" to="/Login" ><strong>Login</strong></Link>
+                    </>}
+
+                />
+                
             </>
         );
     }
