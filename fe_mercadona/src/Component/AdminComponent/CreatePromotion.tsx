@@ -34,7 +34,8 @@ export default function CreatePromotion() {
             body: JSON.stringify(data),
             headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
         }
-        fetch(urlPromotion, options);
+        fetch(urlPromotion, options)
+            .then(handleClose);
 
     }
 

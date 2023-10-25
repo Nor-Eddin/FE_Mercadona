@@ -12,6 +12,7 @@ import Authorized from '../Auth/Authorized';
 import { Link } from 'react-router-dom';
 import DeleteCategory from './AdminComponent/DeleteCategory';
 import DeletePromotion from './AdminComponent/DeletePromotion';
+import EditProduct from './AdminComponent/EditProducts';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -44,11 +45,21 @@ export default class Admin extends Component {
                             <td>{product.image}</td>
                             <td>{cat[product.catId]}</td>
                             <td>{product.promotion}</td>
-                            <td  ><ButtonGroup className="buttonUpdate" >
-                                <Button className="btn btn-light ">Editer</Button>
-                                <Button className="btn btn-light ">Ajouter une promotion</Button>
-                                <Button className="btn btn-danger light">Suprimer</Button>
-                            </ButtonGroup></td>
+                            <td  >
+                                <ButtonGroup className="buttonUpdate" >
+                                    <EditProduct
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                        descriptionProduct={product.descriptionProduct}
+                                        price={product.price}
+                                        image={product.image}
+                                        catId={cat[product.catId]}
+                                        promotion={product.promotion}
+                                    />
+                                    <Button className="btn btn-light ">Ajouter une promotion</Button>
+                                    <Button className="btn btn-danger light">Suprimer</Button>
+                                </ButtonGroup>
+                            </td>
                         </tr>)
                 }
             </>

@@ -30,7 +30,8 @@ export default function CreateCategory() {
             body: JSON.stringify(data),
             headers: { Accept:"application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
         }
-        fetch(urlCategory, options);
+        fetch(urlCategory, options)
+            .then(handleClose);
 
     }
 

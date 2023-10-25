@@ -34,13 +34,13 @@ export default function CreateProduct() {
             image: target.image.value,
             catId: target.category.value,
         };
-        console.log(data);
         const options: RequestInit = {
             method: "POST",
             body: JSON.stringify(data),
             headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
         }
-        fetch(urlProduct, options);
+        fetch(urlProduct, options)
+            .then(handleClose);
 
 
     }

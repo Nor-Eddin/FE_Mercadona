@@ -12,5 +12,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Forms\" />
+    <Folder Include="src\Models\" />
   </ItemGroup>
 </Project>
