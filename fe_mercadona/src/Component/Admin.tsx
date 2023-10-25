@@ -9,6 +9,9 @@ import CreateProduct from './AdminComponent/CreateProducts';
 import CreateCategory from './AdminComponent/CreateCategories';
 import CreatePromotion from './AdminComponent/CreatePromotion';
 import Authorized from '../Auth/Authorized';
+import { Link } from 'react-router-dom';
+import DeleteCategory from './AdminComponent/DeleteCategory';
+import DeletePromotion from './AdminComponent/DeletePromotion';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -63,8 +66,8 @@ export default class Admin extends Component {
                         <>
                             <h1>Gestion des produits</h1>
                             <CreateProduct />
-                            <CreateCategory />
-                            <CreatePromotion />
+                            <CreateCategory /><DeleteCategory/>
+                            <CreatePromotion /><DeletePromotion/>
                             <table id="tableStyle" className="hover responsive table table-striped" >
                                 <thead>
                                     <tr>
@@ -82,7 +85,11 @@ export default class Admin extends Component {
                                 </tbody>
                             </table>
                         </>}
-                    notAuthorized={<>Vous n'avez pas les acces</>}
+                    notAuthorized={<>
+                        Vous n'etes pas les authorisations pour entrer<br />
+                        Seul l'administrateur peut y acceder<br />
+                            Si c'est le cas alors proceder au login ici : <Link className="navbar-brand" to="/Login" ><strong>Login</strong></Link>
+                    </>}
 
                 />
                 

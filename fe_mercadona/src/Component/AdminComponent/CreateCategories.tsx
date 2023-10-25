@@ -12,9 +12,12 @@ interface CustomForm extends HTMLFormElement {
 }
 export default function CreateCategory() {
     const [show, setShow] = useState(false);
+    const [hide, setHide] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleHide = () => setHide(true);
+    const handleNotHide = () => setHide(false);
     const onSubmitCategory = (event: FormEvent<CustomForm>) => {
         event.preventDefault();
         const target = event.currentTarget.elements;
@@ -38,23 +41,37 @@ export default function CreateCategory() {
             </Button>
 
             <Modal show={show}  >
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Nom de la categorie</Modal.Title>
                 </Modal.Header>
                 <Form onSubmit={onSubmitCategory}>
-                <Modal.Body>
+                    <Modal.Body onClick={handleNotHide}>
                     
                         <Form.Control id="categoryName" type="text" placeholder="Nom de la categorie" required autoFocus/>
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Annuler
-                    </Button>
-                        <Button variant="primary" type="submit" onClick={handleClose}>
-                        Ajouter
-                    </Button>
-                    </Modal.Footer>
+                        {
+                            hide ?
+                                <>
+                                    <div ><strong>Valider votre choix?   </strong></div>
+                                    <Button variant="secondary" onClick={handleNotHide}>
+                                        Non
+                                    </Button>
+                                    <Button variant="primary" type="submit" >
+                                        Oui
+                                    </Button>
+                                </> :
+                                <>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Annuler
+                                    </Button>
+                                    <Button variant="primary" onClick={handleHide} >
+                                        Ajouter
+                                    </Button>
+                                </>
+                        }
+                </Modal.Footer>
                 </Form>
             </Modal>
         </>
