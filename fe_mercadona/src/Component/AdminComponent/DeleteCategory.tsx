@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlCategory } from '../../endpoints';
 import axios, { AxiosResponse } from 'axios';
-import { categoryDTO } from '../../Models/categories.model';
+import { categoryDTO } from '../../Models/categoryDTO.model';
 import ConfirmDeleteCategory from './ConfirmDeleteCategoy';
 
 interface CustomElements extends HTMLFormControlsCollection {

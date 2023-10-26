@@ -1,0 +1,50 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import {urlPromotion } from '../../endpoints';
+
+export default function ConfirmDeletePromotion(props: any) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => { setShow(false) };
+    const handleShow = () => setShow(true);
+
+    async function deletePromotion(id: number) {
+        try {
+            await fetch(`${urlPromotion}/${id}`, { method: 'DELETE' })
+                .then(handleClose);
+
+
+        } catch (e) {
+            if (e) console.error(e);
+        }
+    }
+
+    return (
+        <>
+            <Button variant="danger" onClick={handleShow}>
+                Suprimer
+            </Button>
+
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header>
+                    <Modal.Title>Suppression du produit!!!!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Etes vous sur de vouloir supprimer la promotion "{props.idPromotion}"?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={handleClose}>NON</Button>
+                    <Button variant="danger" onClick={() => deletePromotion(props.idPromotion)}>OUI</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
+}
+
