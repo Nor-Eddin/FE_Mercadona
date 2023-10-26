@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent,useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { urlCategory, urlProduct } from '../../endpoints';
-import axios, { AxiosResponse } from 'axios';
-import { categoryDTO } from '../../Models/categories.model';
-import { productDTO } from '../../Models/productDTO.model';
-import { useParams } from 'react-router-dom';
+import { urlProduct } from '../../endpoints';
+
 
 interface CustomElements extends HTMLFormControlsCollection {
     productName: HTMLInputElement;

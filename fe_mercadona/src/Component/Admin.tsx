@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import DeleteCategory from './AdminComponent/DeleteCategory';
 import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
+import DeleteProduct from './AdminComponent/DeleteProduct';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -57,7 +58,10 @@ export default class Admin extends Component {
                                         promotion={product.promotion}
                                     />
                                     <Button className="btn btn-light ">Ajouter une promotion</Button>
-                                    <Button className="btn btn-danger light">Suprimer</Button>
+                                    <DeleteProduct
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                    />
                                 </ButtonGroup>
                             </td>
                         </tr>)
@@ -125,6 +129,7 @@ export default class Admin extends Component {
         this.setState({ listPromotions: data, loading: false });
 
     }
+
 }
 
 
