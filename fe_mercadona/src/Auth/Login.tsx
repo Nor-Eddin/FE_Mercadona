@@ -19,7 +19,6 @@ export default function Login() {
             saveToken(response.data);
             update(getClaim());
             navigate('/');
-            console.log(response.data);
         } catch (error) {
             setErrors(error.response.data)
         }

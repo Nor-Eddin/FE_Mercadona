@@ -1,8 +1,13 @@
-import { FormEvent, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormEvent, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { urlProduct } from '../../endpoints';
+import { urlCategory, urlProduct } from '../../endpoints';
+import { categoryDTO } from '../../Models/categoryDTO.model';
+import axios, { AxiosResponse } from 'axios';
+
 
 interface CustomElements extends HTMLFormControlsCollection {
     productName: HTMLInputElement;
@@ -18,20 +23,26 @@ interface CustomForm extends HTMLFormElement {
 export default function CreateProduct() {
     const [show, setShow] = useState(false);
     const [hide, setHide] = useState(false);
+    const [listCategories, setListCategories] = useState<categoryDTO[]>();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleHide = () => setHide(true);
     const handleNotHide = () => setHide(false);
+
+
+
     const onSubmitProduct = (event: FormEvent<CustomForm>) => {
         event.preventDefault();
         const target = event.currentTarget.elements;
+        const nameImage = ((target.image.value).split("\\")).pop();
+
 
         const data = {
             productName: target.productName.value,
             descriptionProduct: target.descriptionProduct.value,
             price: target.price.value,
-            image: target.image.value,
+            image: nameImage,
             catId: target.category.value,
         };
         const options: RequestInit = {
@@ -42,8 +53,17 @@ export default function CreateProduct() {
         fetch(urlProduct, options)
             .then(handleClose);
 
-
     }
+
+    useEffect(() => {
+        getCategories();
+            }, [])
+        async function getCategories() {
+            await axios.get(urlCategory)
+                .then((response: AxiosResponse<categoryDTO[]>) => {
+                    setListCategories(response.data);
+                })
+        }
 
     return (
         <>
@@ -68,15 +88,22 @@ export default function CreateProduct() {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="category">Categorie du produit</Form.Label><br />
-                            <Form.Control id="category" type="number" placeholder="Nom du produit" autoFocus required />
+                            <Form.Select id="category" autoFocus required>
+                                <option>Choisissez une category</option>
+                                {listCategories?.map(category => 
+                                    <>
+                                        <option value={category.catId-1}>{category.categoryName}</option>
+                                    </>
+                                ) }
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="price">Prix du produit</Form.Label><br />
                             <Form.Control id="price" type="number" placeholder="Prix du produit" autoFocus required />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="image">Photo du produit</Form.Label><br/>
-                            <Form.Control id="image" type="text" placeholder="Photo du produit" autoFocus required />
+                            <Form.Label htmlFor="image">Photo du produit</Form.Label><br />
+                            <Form.Control id="image" type="file" placeholder="Photo du produit" autoFocus required />
                         </Form.Group>
                 </Modal.Body>
                     <Modal.Footer>
@@ -87,7 +114,7 @@ export default function CreateProduct() {
                                     <Button variant="secondary" onClick={handleNotHide}>
                                         Non
                                     </Button>
-                                    <Button variant="primary" type="submit" >
+                                    <Button variant="primary" type="submit">
                                         Oui
                                         </Button>
                                 </> :
