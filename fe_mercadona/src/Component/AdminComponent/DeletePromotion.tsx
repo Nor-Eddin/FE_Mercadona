@@ -1,8 +1,11 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlPromotion } from '../../endpoints';
+import { promotionDTO } from '../../Models/promotionDTO.model';
+import axios, { AxiosResponse } from 'axios';
+import ConfirmDeletePromotion from './ConfirmDeletePromotion';
 
 interface CustomElements extends HTMLFormControlsCollection {
     dateToStart: HTMLInputElement;
@@ -14,26 +17,23 @@ interface CustomForm extends HTMLFormElement {
 }
 export default function DeletePromotion() {
     const [show, setShow] = useState(false);
+    const [promotions, setPromotions] = useState<promotionDTO[]>();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const onSubmitPromotion = (event: FormEvent<CustomForm>) => {
-        event.preventDefault();
-        const target = event.currentTarget.elements;
 
-        const data = {
-            dateToStart: target.dateToStart.value,
-            dateToEnd: target.dateToEnd.value,
-            tauxPromotion: target.tauxPromotion.value
-        };
-        const options: RequestInit = {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
-        }
-        fetch(urlPromotion, options);
+    useEffect(() => {
+        getPromotions();
 
+    }, [promotions])
+
+    async function getPromotions() {
+        await axios.get(urlPromotion)
+            .then((response: AxiosResponse<promotionDTO[]>) => {
+                setPromotions(response.data);
+            })
     }
+   
 
     return (
         <>
@@ -42,6 +42,7 @@ export default function DeletePromotion() {
             <Modal
                 size="lg"
                 show={show}
+                scrollable={true}
                 onHide={() => setShow(false)}
                 aria-labelledby="example-modal-sizes-title-lg"
             >
@@ -51,8 +52,33 @@ export default function DeletePromotion() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
+                    <table className="table table-striped">
+                        <thead>
+                            <th>Date de debut</th>
+                            <th>Date de fin</th>
+                            <th>Taux de promotion</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            {promotions?.map(promotion =>
+                                <>
+                                    <tr key={promotion.idPromotion}>
+                                        <td>{promotion.dateToStart}</td>
+                                        <td>{promotion.dateToEnd}</td>
+                                        <td>{promotion.tauxPromotion}</td>
+                                        <td><ConfirmDeletePromotion
+                                            idPromotion={promotion.idPromotion}
+                                        ></ConfirmDeletePromotion></td>
+                                    </tr>
+                                    <tr></tr>
+                                </>
+                            )}
+                        </tbody>
+                    </table>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={handleClose}>Fermer</Button>
+                </Modal.Footer>
             </Modal>
         </>
     );

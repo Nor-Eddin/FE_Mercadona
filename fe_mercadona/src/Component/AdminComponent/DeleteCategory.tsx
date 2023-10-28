@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlCategory } from '../../endpoints';
 import axios, { AxiosResponse } from 'axios';
-import { categoryDTO } from '../../Models/categories.model';
+import { categoryDTO } from '../../Models/categoryDTO.model';
+import ConfirmDeleteCategory from './ConfirmDeleteCategoy';
 
 interface CustomElements extends HTMLFormControlsCollection {
     categoryName: HTMLInputElement;
@@ -21,38 +22,25 @@ export default function DeleteCategory() {
     const handleShow = () => setShow(true);
 
     useEffect(() => {
-        axios.get(urlCategory)
+        getCategories();
+
+    }, [categories])
+
+    async function getCategories() {
+        await axios.get(urlCategory)
             .then((response: AxiosResponse<categoryDTO[]>) => {
                 setCategories(response.data);
             })
-
-            
-    },[])
-    
-
-/*    const onSubmitCategory = (event: FormEvent<CustomForm>) => {
-        event.preventDefault();
-        const target = event.currentTarget.elements;
-
-        const data = {
-            categoryName: target.categoryName.value
-        };
-        const options: RequestInit = {
-            method: "",
-            body: JSON.stringify(data),
-            headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
-        }
-        fetch(urlCategory, options);
-
-    }*/
-
+    }
+ 
     return (
         <>
-            <Button variant="danger" onClick={() => setShow(true)}>Supprimer une categorie</Button>
+            <Button variant="danger" onClick={handleShow}>Supprimer une categorie</Button>
             
             <Modal
                 size="lg"
                 show={show}
+                scrollable={true }
                 onHide={() => setShow(false)}
                 aria-labelledby="example-modal-sizes-title-lg"
             >
@@ -72,7 +60,10 @@ export default function DeleteCategory() {
                                 <>
                                     <tr key={category.catId}>
                                         <td>{category.categoryName}</td>
-                                        <td><Button className="bg-danger">Supprimer</Button></td>
+                                        <td><ConfirmDeleteCategory
+                                            catId={category.catId}
+                                            catName={category.categoryName}
+                                        ></ConfirmDeleteCategory></td>                                        
                                     </tr>
                                 <tr></tr>
                                 </>
@@ -80,6 +71,9 @@ export default function DeleteCategory() {
                         </tbody>
                     </table>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={handleClose}>Fermer</Button>
+                </Modal.Footer>
             </Modal>
         </>
     );

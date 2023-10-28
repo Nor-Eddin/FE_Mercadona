@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent,useEffect,useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlCategory, urlProduct } from '../../endpoints';
 import axios, { AxiosResponse } from 'axios';
-import { categoryDTO } from '../../Models/categories.model';
-import { productDTO } from '../../Models/productDTO.model';
-import { useParams } from 'react-router-dom';
+import { categoryDTO } from '../../Models/categoryDTO.model';
+
 
 interface CustomElements extends HTMLFormControlsCollection {
     productName: HTMLInputElement;
@@ -24,6 +23,7 @@ export default function EditProduct(props: any) {
     //const { id }:any = useParams();
     const [show, setShow] = useState(false);
     const [hide, setHide] = useState(false);
+    const [listCategories, setListCategories] = useState<categoryDTO[]>();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,24 +33,31 @@ export default function EditProduct(props: any) {
     const onSubmitProduct = (event: FormEvent<CustomForm>) => {
         event.preventDefault();
         const target = event.currentTarget.elements;
+        const nameImage = ((target.image.value).split("\\")).pop();
 
         const data = {
             productName: target.productName.value,
             descriptionProduct: target.descriptionProduct.value,
             price: target.price.value,
-            image: target.image.value,
+            image: nameImage,
             catId: target.category.value,
         };
-        console.log(data);
         const options: RequestInit = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: { Accept: "application/json,text/plain", "Content-type": "application/json,charset=UTF-8" }
         }
         fetch(`${urlProduct}/${props.idProduct}`, options)
-            .then(handleClose);
-
-
+            .then(handleClose)
+    }
+    useEffect(() => {
+        getCategories();
+    }, [listCategories])
+    async function getCategories() {
+        await axios.get(urlCategory)
+            .then((response: AxiosResponse<categoryDTO[]>) => {
+                setListCategories(response.data);
+            })
     }
 
     return (
@@ -72,24 +79,31 @@ export default function EditProduct(props: any) {
                     <Modal.Body onClick={handleNotHide}>
 
                         <Form.Group className="mb-3"  >
-                            <Form.Label htmlFor="productName">Nom du produit {props.idProduct }</Form.Label><br />
-                            <Form.Control id="productName" defaultValue={props.productName} type="text" placeholder="Nom du produit" autoFocus required />
+                            <Form.Label htmlFor="productName">Nom du produit : {props.productName}</Form.Label><br />
+                            <Form.Control id="productName" type="text" placeholder="Nom du produit" autoFocus required />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="descriptionProduct">Description du produit</Form.Label><br />
-                            <Form.Control id="descriptionProduct" defaultValue={props.descriptionProduct} type="textarea" required />
+                            <Form.Label htmlFor="descriptionProduct">Description du produit : {props.descriptionProduct} </Form.Label><br />
+                            <Form.Control id="descriptionProduct" type="textarea" required />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="category">Categorie du produit</Form.Label><br />
-                            <Form.Control id="category" defaultValue={props.catId}  type="number" placeholder="Nom du produit" autoFocus required />
+                            <Form.Select id="category" autoFocus required>
+                                <option>{props.catId}</option>
+                                {listCategories?.map(category =>
+                                    <>
+                                        <option value={category.catId -1}>{category.categoryName}</option>
+                                    </>
+                                )}
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="price">Prix du produit</Form.Label><br />
-                            <Form.Control id="price" defaultValue={props.price} type="number" placeholder="Prix du produit" autoFocus required />
+                            <Form.Label htmlFor="price">Prix du produit : {props.price}</Form.Label><br />
+                            <Form.Control id="price" type="number" placeholder="Prix du produit" autoFocus required />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="image">Photo du produit</Form.Label><br />
-                            <Form.Control id="image" defaultValue={props.image}  type="text" placeholder="Photo du produit" autoFocus required />
+                            <Form.Label htmlFor="image">Photo du produit : {props.image}</Form.Label><br />
+                            <Form.Control id="image" type="file" placeholder="Photo du produit" autoFocus required />
                         </Form.Group>
                     </Modal.Body>
             <Modal.Footer>

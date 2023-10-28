@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import DeleteCategory from './AdminComponent/DeleteCategory';
 import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
+import DeleteProduct from './AdminComponent/DeleteProduct';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -32,7 +33,6 @@ export default class Admin extends Component {
     static renderListTable(listProducts: any[],listCategories:any[]) {
         let cat: any[];
         cat = listCategories.map((c) => (cat = c.categoryName));
-        console.log(cat);
         return (
             <>
                 {
@@ -47,7 +47,7 @@ export default class Admin extends Component {
                             <td>{product.promotion}</td>
                             <td  >
                                 <ButtonGroup className="buttonUpdate" >
-                                    <EditProduct
+                                    <EditProduct key={product.idProduct}
                                         idProduct={product.idProduct}
                                         productName={product.productName}
                                         descriptionProduct={product.descriptionProduct}
@@ -57,7 +57,10 @@ export default class Admin extends Component {
                                         promotion={product.promotion}
                                     />
                                     <Button className="btn btn-light ">Ajouter une promotion</Button>
-                                    <Button className="btn btn-danger light">Suprimer</Button>
+                                    <DeleteProduct
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                    />
                                 </ButtonGroup>
                             </td>
                         </tr>)
@@ -76,7 +79,7 @@ export default class Admin extends Component {
                     authorized={
                         <>
                             <h1>Gestion des produits</h1>
-                            <CreateProduct />
+                            <CreateProduct/>
                             <CreateCategory /><DeleteCategory/>
                             <CreatePromotion /><DeletePromotion/>
                             <table id="tableStyle" className="hover responsive table table-striped" >
@@ -125,6 +128,7 @@ export default class Admin extends Component {
         this.setState({ listPromotions: data, loading: false });
 
     }
+
 }
 
 
