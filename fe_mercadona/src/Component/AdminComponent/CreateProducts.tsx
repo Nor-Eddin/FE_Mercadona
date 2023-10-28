@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useEffect, useState } from 'react';
@@ -36,6 +37,8 @@ export default function CreateProduct() {
         event.preventDefault();
         const target = event.currentTarget.elements;
         const nameImage = ((target.image.value).split("\\")).pop();
+        let formData = new FormData();
+        formData.append('file', target.image.value);
 
 
         const data = {
@@ -52,6 +55,9 @@ export default function CreateProduct() {
         }
         fetch(urlProduct, options)
             .then(handleClose);
+        axios.post('/public/', Form, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
 
     }
 
