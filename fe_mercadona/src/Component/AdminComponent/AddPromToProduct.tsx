@@ -68,7 +68,7 @@ export default function AddPromToProduct(props: any) {
 
     return (
         <>
-            <Button variant="light" onClick={() => setShow(true)}>Affillier une promotion</Button>
+            <Button variant="light" onClick={() => setShow(true)}>Ajouter une promotion</Button>
 
             <Modal
                 size="lg"

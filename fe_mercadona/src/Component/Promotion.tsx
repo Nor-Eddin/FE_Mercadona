@@ -10,7 +10,7 @@ export default class Promotion extends Component {
     static displayName = Promotion.name;
     constructor(props:any) {
         super(props);
-        this.state = { promotionProducts: [], loading: true };
+        this.state = { listProducts: [], loading: true };
     }
     componentDidMount() {
         this.listProductsData();
@@ -19,18 +19,19 @@ export default class Promotion extends Component {
     componentDidUpdate() {
         this.listProductsData();
     }
-    static renderProductsTable(promotionProducts: any[]) {
+    static renderProductsTable(listProducts: any[]) {
 
         return (
             <>
                 {
-                    promotionProducts.map(product =>
+                    listProducts.map(product =>
+                        product.idPromotion?
                         <CardProduct key={product.idProduct}
                             title={product.productName}
                             description={product.descriptionProduct}
                             price={product.price}
                             image={product.image}
-                            category={product.category} />)
+                            category={product.category} />:<></>)
                 }
             </>
         );
@@ -38,7 +39,7 @@ export default class Promotion extends Component {
     render() {
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Promotion.renderProductsTable(this.state.promotionProducts);
+            : Promotion.renderProductsTable(this.state.listProducts);
         return (
             <>
                 <h3>Catalogue des produits</h3>
@@ -49,7 +50,7 @@ export default class Promotion extends Component {
     async listProductsData() {
         const response = await fetch(urlProduct);
         const data = await response.json();
-        this.setState({ promotionProducts: data, loading: false });
+        this.setState({ listProducts: data, loading: false });
 
     }
 }
