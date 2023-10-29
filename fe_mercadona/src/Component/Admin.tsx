@@ -14,6 +14,9 @@ import DeleteCategory from './AdminComponent/DeleteCategory';
 import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
 import DeleteProduct from './AdminComponent/DeleteProduct';
+import AddPromToProduct from './AdminComponent/AddPromToProduct';
+import { List } from 'reactstrap';
+import { promotionDTO } from '../Models/promotionDTO.model';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -30,9 +33,11 @@ export default class Admin extends Component {
     componentDidUpdate() {
         this.listProductsData();
     }
-    static renderListTable(listProducts: any[],listCategories:any[]) {
+    static renderListTable(listProducts: any[],listCategories:any[],listPromotions:any[]) {
         let cat: any[];
+
         cat = listCategories.map((c) => (cat = c.categoryName));
+
         return (
             <>
                 {
@@ -44,7 +49,7 @@ export default class Admin extends Component {
                             <td>{product.price}</td>
                             <td>{product.image}</td>
                             <td>{cat[product.catId]}</td>
-                            <td>{product.promotion}</td>
+                            <td>{product.idPromotion}</td>
                             <td  >
                                 <ButtonGroup className="buttonUpdate" >
                                     <EditProduct key={product.idProduct}
@@ -53,10 +58,19 @@ export default class Admin extends Component {
                                         descriptionProduct={product.descriptionProduct}
                                         price={product.price}
                                         image={product.image}
-                                        catId={cat[product.catId]}
-                                        promotion={product.promotion}
+                                        catId={product.catId}
+                                        promotion={product.promotions}
                                     />
-                                    <Button className="btn btn-light ">Ajouter une promotion</Button>
+                                    <AddPromToProduct key={product.idProduct}
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                        descriptionProduct={product.descriptionProduct}
+                                        price={product.price}
+                                        image={product.image}
+                                        catId={product.catId}
+                                        promotion={product.promotions}
+
+                                    />
                                     <DeleteProduct
                                         idProduct={product.idProduct}
                                         productName={product.productName}
@@ -72,7 +86,7 @@ export default class Admin extends Component {
     render() {
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Admin.renderListTable(this.state.listProducts, this.state.listCategories);
+            : Admin.renderListTable(this.state.listProducts, this.state.listCategories,this.state.listPromotions);
         return (
             <>
                 <Authorized

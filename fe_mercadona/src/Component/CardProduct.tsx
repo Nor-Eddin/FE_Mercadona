@@ -7,7 +7,7 @@ export default function CardProduct(props: any) {
 
     return (
         <>
-            <Card key={props.key} style={{ width: '15rem', borderRadius:10 }} className="d-inline-flex m-1" >
+            <Card style={{ width: '15rem', borderRadius:10 }} className="d-inline-flex m-1" >
                 <Card.Img variant="top" src={props.image} />
             <Card.Body >
                 <Card.Title>{props.title}</Card.Title>
