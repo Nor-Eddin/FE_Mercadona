@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import { Component, useState } from 'react';
+import { Component} from 'react';
 import {urlCategory, urlProduct, urlPromotion}from '../endpoints'
 import CardProduct from "./CardProduct";
 import { Spinner } from 'react-bootstrap';
