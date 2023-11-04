@@ -55,9 +55,7 @@ export default function CreateProduct() {
         }
         fetch(urlProduct, options)
             .then(handleClose);
-        axios.post('/public/', Form, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
+
 
     }
 

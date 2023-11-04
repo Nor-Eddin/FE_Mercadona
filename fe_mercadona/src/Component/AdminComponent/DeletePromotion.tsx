@@ -54,6 +54,7 @@ export default function DeletePromotion() {
                 <Modal.Body>
                     <table className="table table-striped">
                         <thead>
+                            <th>Id</th>
                             <th>Date de debut</th>
                             <th>Date de fin</th>
                             <th>Taux de promotion</th>
@@ -62,7 +63,8 @@ export default function DeletePromotion() {
                         <tbody>
                             {promotions?.map(promotion =>
                                 <>
-                                    <tr key={promotion.idPromotion}>
+                                    <tr >
+                                        <td>{promotion.idPromotion}</td>
                                         <td>{promotion.dateToStart}</td>
                                         <td>{promotion.dateToEnd}</td>
                                         <td>{promotion.tauxPromotion}</td>

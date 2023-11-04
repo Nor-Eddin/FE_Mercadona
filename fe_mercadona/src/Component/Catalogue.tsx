@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import { Component, useState } from 'react';
+import { Component} from 'react';
 import {urlCategory, urlProduct, urlPromotion}from '../endpoints'
 import CardProduct from "./CardProduct";
 import { Spinner } from 'react-bootstrap';
@@ -13,7 +13,7 @@ export default class Catalogue extends Component {
         super(props);
         this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [],  loading: true };
     }
-
+    
 
     componentDidMount(){
         this.listProductsData();
@@ -26,22 +26,27 @@ export default class Catalogue extends Component {
         this.listProductsData();
 
     }
-    static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[],) {
+    static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[],cataloguePromotions:any[]) {
 
-        let cat: any[] ;
+        let cat: any[];
+
         cat = catalogueCategories.map((c) => (cat = c.categoryName));
 
         return (
             <>
                 
                 
-                {  catalogueProducts.map(product =>
-                        <CardProduct key={product.idProduct}
-                            title={product.productName}
-                            description={product.descriptionProduct}
-                            price={product.price}
-                            image={product.image}
-                        category={cat[product.catId]} />)
+                {catalogueProducts.map(product =>
+                    <CardProduct key={product.idProduct}
+                        title={product.productName}
+                        description={product.descriptionProduct}
+                        price={product.price}
+                        image={product.image}
+                        category={cat[product.catId]}
+                        promotion={product.idPromotion}
+                    />                    
+                )
+                    
                 }
             </>
         );
@@ -50,7 +55,7 @@ export default class Catalogue extends Component {
         
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Catalogue.renderProductsTable(this.state.catalogueProducts, this.state.catalogueCategories);
+            : Catalogue.renderProductsTable(this.state.catalogueProducts, this.state.catalogueCategories,this.state.cataloguePromotions);
 
     return (
     <>
