@@ -65,6 +65,7 @@ export default function AddPromToProduct(props: any) {
                 setListPromotions(response.data);
             })
     }
+    let cat: any;
 
     return (
         <>
@@ -85,22 +86,22 @@ export default function AddPromToProduct(props: any) {
                     <Modal.Body onClick={handleNotHide}>
 
                         <Form.Group className="mb-3"  >
-                            <Form.Label htmlFor="productName">Nom du produit : {props.productName}</Form.Label><br />
+                            <Form.Label htmlFor="productName"><b>Nom du produit :</b> {props.productName}</Form.Label><br />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="descriptionProduct">Description du produit : {props.descriptionProduct} </Form.Label><br />
+                            <Form.Label htmlFor="descriptionProduct"><b>Description du produit :</b> {props.descriptionProduct} </Form.Label><br />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="category">Categorie du produit : {props.catId}</Form.Label><br />
+                            <Form.Label htmlFor="category"><b>Categorie du produit :</b> {props.catId}</Form.Label><br />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="price">Prix du produit : {props.price}</Form.Label><br />
+                            <Form.Label htmlFor="price"><b>Prix du produit :</b> {props.price}</Form.Label><br />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="image">Photo du produit : {props.image}</Form.Label><br />
+                            <Form.Label htmlFor="image"><b>Photo du produit :</b> {props.image}</Form.Label><br />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="promotion">choix de la promotion </Form.Label><br />
+                            <Form.Label htmlFor="promotion"><b>choix de la promotion</b> </Form.Label><br />
                             <Form.Select id="promotion" autoFocus required>
                                 <option>choisir une promotion</option>
                                 {listPromotions?.map(promotion =>
@@ -115,7 +116,7 @@ export default function AddPromToProduct(props: any) {
                         {
                             hide ?
                                 <>
-                                    <div ><strong>Valider votre choix?   </strong></div>
+                                    <div ><b>Valider votre choix?   </b></div>
                                     <Button variant="secondary" onClick={handleNotHide}>
                                         Non
                                     </Button>

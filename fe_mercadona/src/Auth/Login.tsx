@@ -28,9 +28,10 @@ export default function Login() {
         <>
             <h3>Login</h3>
             {/*<DisplayErrors errors={errors} />*/}
-            
-            <AuthForm model={{ email: '', password: '' }}
-                onSubmit={ async values=>await login(values)} />
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <AuthForm  model={{ email: '', password: '' }}
+                    onSubmit={async values => await login(values)} />
+            </div>
         </>
     )
 }

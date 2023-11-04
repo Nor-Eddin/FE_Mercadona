@@ -81,15 +81,15 @@ export default function EditProduct(props: any) {
                     <Modal.Body onClick={handleNotHide}>
 
                         <Form.Group className="mb-3"  >
-                            <Form.Label htmlFor="productName">Nom du produit : {props.productName}</Form.Label><br />
+                            <Form.Label htmlFor="productName"><b>Nom du produit :</b> {props.productName}</Form.Label><br />
                             <Form.Control id="productName" type="text" placeholder="Nom du produit" autoFocus />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="descriptionProduct">Description du produit : {props.descriptionProduct} </Form.Label><br />
+                            <Form.Label htmlFor="descriptionProduct"><b>Description du produit :</b> {props.descriptionProduct} </Form.Label><br />
                             <Form.Control id="descriptionProduct" type="textarea" />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="category">Categorie du produit</Form.Label><br />
+                            <Form.Label htmlFor="category"><b>Categorie du produit</b></Form.Label><br />
                             <Form.Select id="category" autoFocus>
                                 <option>{props.catId}</option>
                                 {listCategories?.map(category =>
@@ -100,11 +100,11 @@ export default function EditProduct(props: any) {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="price">Prix du produit : {props.price}</Form.Label><br />
+                            <Form.Label htmlFor="price"><b>Prix du produit :</b> {props.price}</Form.Label><br />
                             <Form.Control id="price" type="number" placeholder="Prix du produit" autoFocus />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="image">Photo du produit : {props.image}</Form.Label><br />
+                            <Form.Label htmlFor="image"><b>Photo du produit:</b> {props.image}</Form.Label><br />
                             <Form.Control id="image" type="file" placeholder="Photo du produit" autoFocus />
                         </Form.Group>
                     </Modal.Body>

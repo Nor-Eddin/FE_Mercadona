@@ -36,7 +36,7 @@ export default class Catalogue extends Component {
             <>
                 
                 
-                {  catalogueProducts.map(product =>
+                {catalogueProducts.map(product =>
                     <CardProduct key={product.idProduct}
                         title={product.productName}
                         description={product.descriptionProduct}
@@ -44,7 +44,9 @@ export default class Catalogue extends Component {
                         image={product.image}
                         category={cat[product.catId]}
                         promotion={product.idPromotion}
-                    />)
+                    />                    
+                )
+                    
                 }
             </>
         );

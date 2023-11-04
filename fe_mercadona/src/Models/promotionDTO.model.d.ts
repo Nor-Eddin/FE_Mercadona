@@ -1,6 +1,6 @@
 export interface promotionDTO {
     idPromotion: number;
-    dateToStart: string;
-    dateToEnd: string;
+    dateToStart: date;
+    dateToEnd: date;
     tauxPromotion: number;
 }

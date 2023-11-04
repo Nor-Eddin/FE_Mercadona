@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, ButtonGroup, Spinner } from 'react-bootstrap';
+import { ButtonGroup, Spinner } from 'react-bootstrap';
 import './NavMenu.css';
 import { Component } from 'react';
 import { urlCategory, urlProduct, urlPromotion } from '../endpoints';
@@ -15,8 +15,6 @@ import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
 import DeleteProduct from './AdminComponent/DeleteProduct';
 import AddPromToProduct from './AdminComponent/AddPromToProduct';
-import { List } from 'reactstrap';
-import { promotionDTO } from '../Models/promotionDTO.model';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -33,17 +31,17 @@ export default class Admin extends Component {
     componentDidUpdate() {
         this.listProductsData();
     }
-    static renderListTable(listProducts: any[],listCategories:any[],listPromotions:any[]) {
+    static renderListTable(listProducts: any[],listCategories:any[]) {
         let cat: any[];
-
+        
         cat = listCategories.map((c) => (cat = c.categoryName));
 
         return (
             <>
                 {
-                    listProducts.map(product =>
+                    listProducts.map(product => (
                         <tr>
-                            <th scope="row">{product.idProduct}</th>
+                            <th scope="row" key={product.idProduct }>{product.idProduct}</th>
                             <td>{product.productName}</td>
                             <td>{product.descriptionProduct}</td>
                             <td>{product.price}</td>
@@ -58,7 +56,7 @@ export default class Admin extends Component {
                                         descriptionProduct={product.descriptionProduct}
                                         price={product.price}
                                         image={product.image}
-                                        catId={product.catId}
+                                        catId={cat[product.catId]}
                                         promotion={product.promotions}
                                     />
                                     <AddPromToProduct key={product.idProduct}
@@ -67,7 +65,7 @@ export default class Admin extends Component {
                                         descriptionProduct={product.descriptionProduct}
                                         price={product.price}
                                         image={product.image}
-                                        catId={product.catId}
+                                        catId={cat[product.catId]}
                                         promotion={product.promotions}
 
                                     />
@@ -77,7 +75,8 @@ export default class Admin extends Component {
                                     />
                                 </ButtonGroup>
                             </td>
-                        </tr>)
+                        </tr>
+                    ))
                 }
             </>
         );
@@ -86,7 +85,7 @@ export default class Admin extends Component {
     render() {
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Admin.renderListTable(this.state.listProducts, this.state.listCategories,this.state.listPromotions);
+            : Admin.renderListTable(this.state.listProducts, this.state.listCategories);
         return (
             <>
                 <Authorized
@@ -96,7 +95,7 @@ export default class Admin extends Component {
                             <CreateProduct/>
                             <CreateCategory /><DeleteCategory/>
                             <CreatePromotion /><DeletePromotion/>
-                            <table id="tableStyle" className="hover responsive table table-striped" >
+                            <table className="hover responsive table table-striped" >
                                 <thead>
                                     <tr>
                                         <th>Id</th>
