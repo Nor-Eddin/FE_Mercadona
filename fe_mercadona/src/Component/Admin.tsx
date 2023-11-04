@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, ButtonGroup, Spinner } from 'react-bootstrap';
+import { ButtonGroup, Spinner } from 'react-bootstrap';
 import './NavMenu.css';
 import { Component } from 'react';
 import { urlCategory, urlProduct, urlPromotion } from '../endpoints';
@@ -14,6 +14,7 @@ import DeleteCategory from './AdminComponent/DeleteCategory';
 import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
 import DeleteProduct from './AdminComponent/DeleteProduct';
+import AddPromToProduct from './AdminComponent/AddPromToProduct';
 
 export default class Admin extends Component {
     static displayName = Admin.name;
@@ -32,19 +33,21 @@ export default class Admin extends Component {
     }
     static renderListTable(listProducts: any[],listCategories:any[]) {
         let cat: any[];
+        
         cat = listCategories.map((c) => (cat = c.categoryName));
+
         return (
             <>
                 {
-                    listProducts.map(product =>
+                    listProducts.map(product => (
                         <tr>
-                            <th scope="row">{product.idProduct}</th>
+                            <th scope="row" key={product.idProduct }>{product.idProduct}</th>
                             <td>{product.productName}</td>
                             <td>{product.descriptionProduct}</td>
                             <td>{product.price}</td>
                             <td>{product.image}</td>
                             <td>{cat[product.catId]}</td>
-                            <td>{product.promotion}</td>
+                            <td>{product.idPromotion}</td>
                             <td  >
                                 <ButtonGroup className="buttonUpdate" >
                                     <EditProduct key={product.idProduct}
@@ -54,16 +57,26 @@ export default class Admin extends Component {
                                         price={product.price}
                                         image={product.image}
                                         catId={cat[product.catId]}
-                                        promotion={product.promotion}
+                                        promotion={product.promotions}
                                     />
-                                    <Button className="btn btn-light ">Ajouter une promotion</Button>
+                                    <AddPromToProduct key={product.idProduct}
+                                        idProduct={product.idProduct}
+                                        productName={product.productName}
+                                        descriptionProduct={product.descriptionProduct}
+                                        price={product.price}
+                                        image={product.image}
+                                        catId={cat[product.catId]}
+                                        promotion={product.promotions}
+
+                                    />
                                     <DeleteProduct
                                         idProduct={product.idProduct}
                                         productName={product.productName}
                                     />
                                 </ButtonGroup>
                             </td>
-                        </tr>)
+                        </tr>
+                    ))
                 }
             </>
         );
@@ -82,7 +95,7 @@ export default class Admin extends Component {
                             <CreateProduct/>
                             <CreateCategory /><DeleteCategory/>
                             <CreatePromotion /><DeletePromotion/>
-                            <table id="tableStyle" className="hover responsive table table-striped" >
+                            <table className="hover responsive table table-striped" >
                                 <thead>
                                     <tr>
                                         <th>Id</th>

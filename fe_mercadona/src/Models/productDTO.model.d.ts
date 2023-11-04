@@ -1,9 +1,9 @@
 export interface productDTO {
-IdProduct: numder;
-ProductName: string;
-DescriptionProduct: string;
-Price: number;
-Image: string;
-CatId: number;
-Promotions? : number;
+idProduct: numder;
+productName: string;
+descriptionProduct: string;
+price: number;
+image: string;
+catId: number;
+idPromotions? : number;
 }
