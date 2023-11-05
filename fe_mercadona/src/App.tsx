@@ -23,9 +23,9 @@ export default function App() {
             <AuthenticationContext.Provider value={{ claims, update: setClaims }}>
             <NavMenu />
             <Routes>                
-              <Route path="/" element={<Catalogue />} />
-              <Route path="/Promotion" element={<Promotion />} />
-              <Route path="/Admin" element={<Admin />} />
+              <Route path="/" element={<Catalogue props={undefined} />} />
+              <Route path="/Promotion" element={<Promotion props={undefined} />} />
+              <Route path="/Admin" element={<Admin props={undefined} />} />
               <Route path="/Login" element={<Login />} />
             </Routes>
             </AuthenticationContext.Provider>

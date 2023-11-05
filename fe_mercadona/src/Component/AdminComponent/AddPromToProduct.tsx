@@ -65,11 +65,11 @@ export default function AddPromToProduct(props: any) {
                 setListPromotions(response.data);
             })
     }
-    let cat: any;
+
 
     return (
         <>
-            <Button variant="light" onClick={() => setShow(true)}>Ajouter une promotion</Button>
+            <Button variant="light" onClick={handleShow}>Ajouter une promotion</Button>
 
             <Modal
                 size="lg"
@@ -106,7 +106,7 @@ export default function AddPromToProduct(props: any) {
                                 <option>choisir une promotion</option>
                                 {listPromotions?.map(promotion =>
                                     <>
-                                        <option value={promotion.idPromotion }>{promotion.dateToStart}  <br />{promotion.dateToEnd}  <br />{promotion.tauxPromotion}%</option>
+                                        <option value={promotion.idPromotion}>Du : {promotion.dateToStart} Au : {promotion.dateToEnd} A : {promotion.tauxPromotion} %</option>
                                     </>
                                 )}
                             </Form.Select>

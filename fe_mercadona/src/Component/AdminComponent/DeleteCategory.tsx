@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlCategory } from '../../endpoints';
 import axios, { AxiosResponse } from 'axios';
 import { categoryDTO } from '../../Models/categoryDTO.model';
 import ConfirmDeleteCategory from './ConfirmDeleteCategoy';
 
-interface CustomElements extends HTMLFormControlsCollection {
-    categoryName: HTMLInputElement;
-}
-interface CustomForm extends HTMLFormElement {
-    readonly elements: CustomElements;
-}
+
 export default function DeleteCategory() {
     const [show, setShow] = useState(false);
     const [categories, setCategories] = useState<categoryDTO[]>();

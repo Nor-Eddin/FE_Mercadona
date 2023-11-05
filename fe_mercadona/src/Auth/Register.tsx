@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authenticationResponse, userCredentials } from "./auth.models";
 import { urlAccounts } from "../endpoints";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import {  useNavigate } from 'react-router-dom';
 import AuthForm from "./AuthForm";
 import { getClaim, saveToken } from "./handleJWT";
@@ -9,7 +9,7 @@ import AuthenticationContext from "./AuthenticationContext";
 
 
 export default function Register() {
-    const [errors, setErrors] = useState<string[]>([]);
+    //const [errors, setErrors] = useState<string[]>([]);
     const { update } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     async function register(credentiels: userCredentials) {
