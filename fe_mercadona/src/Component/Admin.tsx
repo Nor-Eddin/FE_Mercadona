@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,8 +16,13 @@ import DeletePromotion from './AdminComponent/DeletePromotion';
 import EditProduct from './AdminComponent/EditProducts';
 import DeleteProduct from './AdminComponent/DeleteProduct';
 import AddPromToProduct from './AdminComponent/AddPromToProduct';
+import { productDTO } from '../Models/productDTO.model';
+import { categoryDTO } from '../Models/categoryDTO.model';
+import { promotionDTO } from '../Models/promotionDTO.model';
 
-export default class Admin extends Component {
+type MyProps = { props: any };
+type MyState = { loading: boolean, listProducts: productDTO[], listCategories: categoryDTO[], listPromotions: promotionDTO[] }
+export default class Admin extends Component<MyProps, MyState> {
     static displayName = Admin.name;
     constructor(props: any) {
         super(props);
@@ -31,7 +37,7 @@ export default class Admin extends Component {
     componentDidUpdate() {
         this.listProductsData();
     }
-    static renderListTable(listProducts: any[],listCategories:any[]) {
+    static renderListTable(listProducts: any[],listCategories: any[]) {
         let cat: any[];
         
         cat = listCategories.map((c) => (cat = c.categoryName));

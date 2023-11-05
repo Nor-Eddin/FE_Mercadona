@@ -5,12 +5,9 @@ import Card from 'react-bootstrap/Card';
 import { urlPromotion } from '../endpoints';
 import { promotionDTO } from '../Models/promotionDTO.model';
 import axios, { AxiosResponse } from 'axios';
-import { date } from 'yup';
-
 
 export default function CardProduct(props: any) {
     const [listPromotions, setListPromotions] = useState<promotionDTO[]>([]);
-    const signEuros = "€";
     useEffect(() => {
         getPromotion();
 
@@ -24,7 +21,7 @@ export default function CardProduct(props: any) {
     }
 
 
-   const promo = listPromotions.find(l => (props.promotion === l.idPromotion));
+   const promo:any = listPromotions.find(l => (props.promotion === l.idPromotion));
     
         return (
             <>

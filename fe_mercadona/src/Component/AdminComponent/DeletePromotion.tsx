@@ -1,20 +1,12 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { urlPromotion } from '../../endpoints';
 import { promotionDTO } from '../../Models/promotionDTO.model';
 import axios, { AxiosResponse } from 'axios';
 import ConfirmDeletePromotion from './ConfirmDeletePromotion';
 
-interface CustomElements extends HTMLFormControlsCollection {
-    dateToStart: HTMLInputElement;
-    dateToEnd: HTMLInputElement;
-    tauxPromotion: HTMLInputElement;
-}
-interface CustomForm extends HTMLFormElement {
-    readonly elements: CustomElements;
-}
+
 export default function DeletePromotion() {
     const [show, setShow] = useState(false);
     const [promotions, setPromotions] = useState<promotionDTO[]>();
@@ -37,7 +29,7 @@ export default function DeletePromotion() {
 
     return (
         <>
-            <Button variant="danger" onClick={() => setShow(true)}>Supprimer une promotion</Button>
+            <Button variant="danger" onClick={handleShow}>Supprimer une promotion</Button>
 
             <Modal
                 size="lg"
