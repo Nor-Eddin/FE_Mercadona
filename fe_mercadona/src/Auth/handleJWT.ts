@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { authenticationResponse, claim } from "./auth.models";
 
 const tokenKey = 'token';
@@ -12,7 +13,7 @@ export function getClaim(): claim[] {
     if (!token) {
         return [];
     }
-    const expiration = localStorage.getItem(expirationKey);
+    const expiration:any = localStorage.getItem(expirationKey);
     const expirationDate = new Date(expiration);
 
     if (expirationDate <= new Date()) {

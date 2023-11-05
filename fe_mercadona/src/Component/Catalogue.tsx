@@ -5,11 +5,15 @@ import { Component} from 'react';
 import {urlCategory, urlProduct, urlPromotion}from '../endpoints'
 import CardProduct from "./CardProduct";
 import { Spinner } from 'react-bootstrap';
+import { productDTO } from '../Models/productDTO.model';
+import { categoryDTO } from '../Models/categoryDTO.model';
+import { promotionDTO } from '../Models/promotionDTO.model';
 
-
-export default class Catalogue extends Component {
+type MyProps = { props:any };
+type MyState = { loading: boolean, catalogueProducts: productDTO[], catalogueCategories: categoryDTO[], cataloguePromotions: promotionDTO[] }
+export default class Catalogue extends Component <MyProps,MyState>{
     static displayName = Catalogue.name;
-    constructor(props:any) {
+    constructor(props: any ) {
         super(props);
         this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [],  loading: true };
     }
@@ -26,7 +30,7 @@ export default class Catalogue extends Component {
         this.listProductsData();
 
     }
-    static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[],cataloguePromotions:any[]) {
+    static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[]) {
 
         let cat: any[];
 
@@ -55,7 +59,7 @@ export default class Catalogue extends Component {
         
         let contents = this.state.loading
             ? <p><Spinner animation="border" /><em>En chargement...</em></p>
-            : Catalogue.renderProductsTable(this.state.catalogueProducts, this.state.catalogueCategories,this.state.cataloguePromotions);
+            : Catalogue.renderProductsTable(this.state.catalogueProducts, this.state.catalogueCategories);
 
     return (
     <>
@@ -84,6 +88,4 @@ export default class Catalogue extends Component {
 
     }
 }
-
-
 

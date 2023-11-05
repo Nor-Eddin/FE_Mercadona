@@ -24,7 +24,6 @@ export default function EditProduct(props: any) {
     const [show, setShow] = useState(false);
     const [hide, setHide] = useState(false);
     const [listCategories, setListCategories] = useState<categoryDTO[]>();
-    //let cat= listCategories.map(c => cat = c.categoryName)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -64,7 +63,7 @@ export default function EditProduct(props: any) {
 
     return (
         <>
-            <Button variant="light" onClick={() => setShow(true)}>Editer</Button>
+            <Button variant="light" onClick={handleShow}>Editer</Button>
 
             <Modal
                 size="lg"
