@@ -4,7 +4,7 @@
 import { Component} from 'react';
 import {urlCategory, urlProduct, urlPromotion}from '../endpoints'
 import CardProduct from "./CardProduct";
-import { Spinner } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { productDTO } from '../Models/productDTO.model';
 import { categoryDTO } from '../Models/categoryDTO.model';
 import { promotionDTO } from '../Models/promotionDTO.model';
@@ -17,8 +17,8 @@ export default class Catalogue extends Component <MyProps,MyState>{
         super(props);
         this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [],  loading: true };
     }
-    
 
+    
     componentDidMount(){
         this.listProductsData();
         this.listCategoriesData();
@@ -30,16 +30,28 @@ export default class Catalogue extends Component <MyProps,MyState>{
         this.listProductsData();
 
     }
+    
     static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[]) {
-
+       // const menuItems = [...new Set(catalogueCategories.map((val) => val.category))]
+        
         let cat: any[];
 
         cat = catalogueCategories.map((c) => (cat = c.categoryName));
 
         return (
-            <>
-                
-                
+            <> 
+                <Form.Group style={{ width: 500, display: "flex", justifyContent: "space-around" }}>
+                    <Form.Label htmlFor="category">Filtrer par category</Form.Label>
+                    <Form.Select id="category" style={{ width: 300 }} autoFocus  >
+                        <option>Choisissez une category</option>
+                        {catalogueCategories?.map(category =>
+                            <>
+                                <option value={category.catId - 1}>{category.categoryName}</option>
+                            </>
+                        )}
+                    </Form.Select>
+                    </Form.Group>
+
                 {catalogueProducts.map(product =>
                     <CardProduct key={product.idProduct}
                         title={product.productName}
@@ -49,8 +61,7 @@ export default class Catalogue extends Component <MyProps,MyState>{
                         category={cat[product.catId]}
                         promotion={product.idPromotion}
                     />                    
-                )
-                    
+                )                    
                 }
             </>
         );
@@ -78,7 +89,6 @@ export default class Catalogue extends Component <MyProps,MyState>{
         const response = await fetch(urlCategory);
         const data = await response.json();
         this.setState({ catalogueCategories: data, loading: false });
-
 
     }
     async listPromotionsData() {
