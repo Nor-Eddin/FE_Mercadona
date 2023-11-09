@@ -46,6 +46,7 @@ export default function DeleteCategory() {
                 <Modal.Body>
                     <table className="table table-striped">
                         <thead>
+                            <th>Id</th>
                             <th>Nom des categories</th>
                             <th></th>
                         </thead>
@@ -53,6 +54,7 @@ export default function DeleteCategory() {
                             {categories?.map(category =>
                                 <>
                                     <tr key={category.catId}>
+                                        <td>{category.catId}</td>
                                         <td>{category.categoryName}</td>
                                         <td><ConfirmDeleteCategory
                                             catId={category.catId}
