@@ -47,20 +47,22 @@ export default class Catalogue extends Component <MyProps,MyState>{
         cat = catalogueCategories.map((c) => (cat = c.categoryName));
 
         return (
-            <> 
-                <Form.Group style={{ width: 500, display: "flex", justifyContent: "space-around" }}>
-                    <Form.Label htmlFor="categoryFilter">Filtrer par category</Form.Label>
-                    <Form.Select id="categoryFilter" style={{ width: 300 }} autoFocus  >
-                        <option>Choisissez une category</option>
-                        {catalogueCategories?.map(category =>
-                            <>
-                                <option value={category.catId}>{category.categoryName}</option>
-                            </>
-                        )}
-                    </Form.Select>
+            <>
+                <div style={{ display: "flex", justifyContent: "center" }} className="m-3">
+                    <Form.Group style={{ width: 500,display:"flex", justifyContent: "space-around" }}>
+                        <Form.Select id="categoryFilter" style={{ width: 300 }} autoFocus  >
+                            <option>Choisissez une categorie a flitrer</option>
+                            {catalogueCategories?.map(category =>
+                                <>
+                                    <option value={category.catId}>{category.categoryName}</option>
+                                </>
+                            )}
+                        </Form.Select>
                     </Form.Group>
+                </div>
 
-                {catalogueProducts.map(product => (choiseCategory ==="Choisissez une category"?
+
+                {catalogueProducts.map(product => (choiseCategory ==="Choisissez une categorie a flitrer"?
                     <CardProduct key={product.idProduct}
                         title={product.productName}
                         description={product.descriptionProduct}

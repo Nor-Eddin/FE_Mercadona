@@ -34,21 +34,22 @@ export default class Promotion extends Component<MyProps, MyState>{
         cat = listCategories.map((c) => (cat = c.categoryName));    
         return (
             <>
-                <Form.Group style={{ width: 500, display: "flex", justifyContent: "space-around" }}>
-                    <Form.Label htmlFor="categoryFilter">Filtrer par category</Form.Label>
+                <div style={{ display: "flex", justifyContent: "center" }} className="m-3">
+                <Form.Group style={{ width: 300, display: "flex", justifyContent: "space-around" }}>
                     <Form.Select id="categoryFilter" style={{ width: 300 }} autoFocus  >
-                        <option>Choisissez une category</option>
+                            <option>Choisissez une categorie a flitrer</option>
                         {listCategories?.map(category =>
                             <>
                                 <option value={category.catId}>{category.categoryName}</option>
                             </>
                         )}
                     </Form.Select>
-                </Form.Group>
+                    </Form.Group>
+                </div>
 
                 {listProducts.map(product => (                       
                         product.idPromotion?
-                            (choiseCategory === "Choisissez une category" ?
+                        (choiseCategory === "Choisissez une categorie a flitrer" ?
                                 <CardProduct key={product.idProduct}
                                     title={product.productName}
                                     description={product.descriptionProduct}
