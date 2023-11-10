@@ -8,7 +8,6 @@ import { Form, Spinner } from 'react-bootstrap';
 import { productDTO } from '../Models/productDTO.model';
 import { categoryDTO } from '../Models/categoryDTO.model';
 import { promotionDTO } from '../Models/promotionDTO.model';
-import { isString } from 'formik';
 
 
 
