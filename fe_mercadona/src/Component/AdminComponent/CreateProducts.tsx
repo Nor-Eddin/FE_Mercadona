@@ -37,9 +37,6 @@ export default function CreateProduct() {
         event.preventDefault();
         const target = event.currentTarget.elements;
         const nameImage = ((target.image.value).split("\\")).pop();
-        let formData = new FormData();
-        formData.append('file', target.image.value);
-
 
         const data = {
             productName: target.productName.value,

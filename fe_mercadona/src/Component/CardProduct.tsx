@@ -27,7 +27,7 @@ export default function CardProduct(props: any) {
             <>
                 
                 <Card style={{ width: '15rem', borderRadius: 10 }} className="d-inline-flex m-1" >
-                    <Card.Img variant="top" src={props.image} />
+                    <Card.Img variant="top" src="https://media.istockphoto.com/id/184276818/fr/photo/pomme-rouge.jpg?s=2048x2048&w=is&k=20&c=fJPExnDOm-czofY8orZKWP3Vn7pQ-66Oubs_mQMVgJ4=" />
                     <Card.Body >
                         
                         <Card.Title>{props.title}</Card.Title>
