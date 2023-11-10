@@ -33,7 +33,7 @@ jobs:
           #output_location: "public" # Built app content directory - optional
           app_location: 'fe_mercadona/src'
           api_location: ''
-          app_build_command: 'npm run build-ui-prod'
+          app_build_command: 'npm run build'
           output_location: 'public'
          
           ###### End of Repository/Build Configurations ######
