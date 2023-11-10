@@ -49,8 +49,8 @@ export default function EditProduct(props: any) {
         }
         fetch(`${urlProduct}/${props.idProduct}`, options)
             .then(handleClose)
-
     }
+
     useEffect(() => {
         getCategories();
     }, [listCategories])
@@ -93,7 +93,7 @@ export default function EditProduct(props: any) {
                                 <option>{props.catId}</option>
                                 {listCategories?.map(category =>
                                     <>
-                                        <option value={category.catId - 1}>{category.categoryName}</option>
+                                        <option value={category.catId-1}>{category.categoryName}</option>
                                     </>
                                 )}
                             </Form.Select>
