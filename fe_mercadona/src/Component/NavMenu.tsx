@@ -37,7 +37,7 @@ export default function NavMenu() {
                                 <Button onClick={() => {
                                     logOut();
                                     update([]);
-                                }} className="nav-link btn btn-link">Log Out</Button>
+                                }} className="nav-link btn btn-light text-danger">Log Out</Button>
 
                             </>}
                         notAuthorized={

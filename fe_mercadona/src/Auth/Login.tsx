@@ -3,12 +3,12 @@ import { authenticationResponse, userCredentials } from "./auth.models";
 import { useNavigate } from 'react-router-dom';
 import { urlAccounts } from "../endpoints";
 import axios from "axios";
-import { useContext} from "react";
+import { useContext, useState} from "react";
 import { getClaim, saveToken } from "./handleJWT";
 import AuthenticationContext from "./AuthenticationContext";
 
 export default function Login() {
-    //const [ errors,setErrors] = useState<string[]>([]);
+    const [ errors,setErrors] = useState<string[]>([]);
     const { update } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     async function login(credentials: userCredentials) {
@@ -19,14 +19,14 @@ export default function Login() {
             update(getClaim());
             navigate('/');
         } catch (error) {
-            //setErrors(error.response.data)
+            setErrors(error.response.data)
         }
     }
 
     return (
         <>
             <h3>Login</h3>
-            {/*<DisplayErrors errors={errors} />*/}
+            <p className="text-danger"><b>{errors}</b></p>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
             <AuthForm  model={{ email: '', password: '' }}
                     onSubmit={async values => await login(values)} />

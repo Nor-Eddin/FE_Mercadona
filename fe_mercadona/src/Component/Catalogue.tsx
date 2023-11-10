@@ -8,6 +8,10 @@ import { Form, Spinner } from 'react-bootstrap';
 import { productDTO } from '../Models/productDTO.model';
 import { categoryDTO } from '../Models/categoryDTO.model';
 import { promotionDTO } from '../Models/promotionDTO.model';
+import { isString } from 'formik';
+
+
+
 
 type MyProps = { props:any };
 type MyState = { loading: boolean, catalogueProducts: productDTO[], catalogueCategories: categoryDTO[], cataloguePromotions: promotionDTO[] }
@@ -15,9 +19,10 @@ export default class Catalogue extends Component <MyProps,MyState>{
     static displayName = Catalogue.name;
     constructor(props: any ) {
         super(props);
-        this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [],  loading: true };
+        this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [], loading: true };
     }
-
+    
+ 
     
     componentDidMount(){
         this.listProductsData();
@@ -32,27 +37,32 @@ export default class Catalogue extends Component <MyProps,MyState>{
     }
     
     static renderProductsTable(catalogueProducts: any[], catalogueCategories: any[]) {
-       // const menuItems = [...new Set(catalogueCategories.map((val) => val.category))]
+
+        const select = document.querySelector("select");
+        const choise:any = select?.selectedIndex;
+        const choiseCategory = select?.options[choise].value ;
         
         let cat: any[];
 
         cat = catalogueCategories.map((c) => (cat = c.categoryName));
 
         return (
-            <> 
-                <Form.Group style={{ width: 500, display: "flex", justifyContent: "space-around" }}>
-                    <Form.Label htmlFor="category">Filtrer par category</Form.Label>
-                    <Form.Select id="category" style={{ width: 300 }} autoFocus  >
-                        <option>Choisissez une category</option>
-                        {catalogueCategories?.map(category =>
-                            <>
-                                <option value={category.catId - 1}>{category.categoryName}</option>
-                            </>
-                        )}
-                    </Form.Select>
+            <>
+                <div style={{ display: "flex", justifyContent: "center" }} className="m-3">
+                    <Form.Group style={{ width: 500,display:"flex", justifyContent: "space-around" }}>
+                        <Form.Select id="categoryFilter" style={{ width: 300 }} autoFocus  >
+                            <option>Choisissez une categorie a flitrer</option>
+                            {catalogueCategories?.map(category =>
+                                <>
+                                    <option value={category.catId}>{category.categoryName}</option>
+                                </>
+                            )}
+                        </Form.Select>
                     </Form.Group>
+                </div>
 
-                {catalogueProducts.map(product =>
+
+                {catalogueProducts.map(product => (choiseCategory ==="Choisissez une categorie a flitrer"?
                     <CardProduct key={product.idProduct}
                         title={product.productName}
                         description={product.descriptionProduct}
@@ -60,7 +70,15 @@ export default class Catalogue extends Component <MyProps,MyState>{
                         image={product.image}
                         category={cat[product.catId]}
                         promotion={product.idPromotion}
-                    />                    
+                    /> : (product.catId +1 ==choiseCategory ?
+                        <CardProduct key={product.idProduct}
+                            title={product.productName}
+                            description={product.descriptionProduct}
+                            price={product.price}
+                            image={product.image}
+                            category={cat[product.catId]}
+                            promotion={product.idPromotion}
+                        />:<></>))                  
                 )                    
                 }
             </>
