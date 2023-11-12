@@ -10,7 +10,6 @@ import NavMenu from './Component/NavMenu';
 import Login from './Auth/Login';
 import { getClaim } from './Auth/handleJWT';
 
-
 export default function App() {
 
     const [claims, setClaims] = useState<claim[]>([]);
@@ -20,15 +19,16 @@ export default function App() {
 
     return (
         <>
-            <AuthenticationContext.Provider value={{ claims, update: setClaims }}>
-            <NavMenu />
-            <Routes>                
-              <Route path="/" element={<Catalogue props={undefined} />} />
-              <Route path="/Promotion" element={<Promotion props={undefined} />} />
-              <Route path="/Admin" element={<Admin props={undefined} />} />
-              <Route path="/Login" element={<Login />} />
-            </Routes>
-            </AuthenticationContext.Provider>
+
+                    <AuthenticationContext.Provider value={{ claims, update: setClaims }}>
+                        <NavMenu />
+                        <Routes>
+                            <Route path="/" element={<Catalogue props={undefined} />} />
+                            <Route path="/Promotion" element={<Promotion props={undefined} />} />
+                            <Route path="/Admin" element={<Admin props={undefined} />} />
+                            <Route path="/Login" element={<Login />} />
+                        </Routes>            
+                    </AuthenticationContext.Provider>
         </>
   )
 }
