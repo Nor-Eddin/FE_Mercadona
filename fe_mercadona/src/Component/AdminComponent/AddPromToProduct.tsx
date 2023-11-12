@@ -38,7 +38,7 @@ export default function AddPromToProduct(props: any) {
             price: props.price,
             image: props.image,
             catId: props.catId,
-            idPromotion: target.promotion.value
+            idPromotion: target.promotion.value == "choisir une promotion" ? null : target.promotion.value
 
         };
         const options: RequestInit = {
@@ -48,6 +48,7 @@ export default function AddPromToProduct(props: any) {
         }
         fetch(`${urlProduct}/${props.idProduct}`, options)
             .then(handleClose)
+        console.log(data);
     }
     useEffect(() => {
         getCategories();
@@ -65,7 +66,6 @@ export default function AddPromToProduct(props: any) {
                 setListPromotions(response.data);
             })
     }
-
 
     return (
         <>
@@ -104,10 +104,13 @@ export default function AddPromToProduct(props: any) {
                             <Form.Label htmlFor="promotion"><b>choix de la promotion</b> </Form.Label><br />
                             <Form.Select id="promotion" autoFocus required>
                                 <option>choisir une promotion</option>
-                                {listPromotions?.map(promotion =>
+                                {listPromotions?.map(promotion => (
                                     <>
                                         <option value={promotion.idPromotion}>Du : {promotion.dateToStart} Au : {promotion.dateToEnd} A : {promotion.tauxPromotion} %</option>
+                                        
                                     </>
+                                    
+                                )
                                 )}
                             </Form.Select>
                         </Form.Group>

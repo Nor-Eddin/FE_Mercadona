@@ -26,7 +26,7 @@ export default function CardProduct(props: any) {
         return (
             <>
                 
-                <Card style={{ width: '15rem', borderRadius: 10 }} className="d-inline-flex m-1" >
+                <Card style={{ width: '14rem', height:'27rem', borderRadius: 10, fontSize:'1rem'}} className="d-inline-flex m-1 card" >
                     <Card.Img variant="top" src="https://media.istockphoto.com/id/184276818/fr/photo/pomme-rouge.jpg?s=2048x2048&w=is&k=20&c=fJPExnDOm-czofY8orZKWP3Vn7pQ-66Oubs_mQMVgJ4=" />
                     <Card.Body >
                         
@@ -38,8 +38,9 @@ export default function CardProduct(props: any) {
                                     <strong>  {(Math.round((props.price * (1 - (promo?.tauxPromotion / 100))) * 100)) / 100} &euro;</strong>
                                 </Card.Title> : <Card.Title>Prix : {props.price} &euro; </Card.Title>}
 
-                        <Card.Title>Categorie : {props.category}</Card.Title>
+                        <Card.Title style={{fontSize: '1rem' }}>Categorie : {props.category}</Card.Title>
                         <Card.Text>
+
                             {props.description}
                         </Card.Text>
                     </Card.Body>

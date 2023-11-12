@@ -20,7 +20,7 @@ export default function NavMenu() {
     return (
         <div>
 
-            <Navbar className="ng-white border-bottom box-shadow mb-3">
+            <Navbar className="ng-white border-bottom box-shadow mb-3 bg-white effetNavBar">
                 <NavbarBrand id="fontTitle" ><strong>Mercadona</strong></NavbarBrand>               
 
                 <Nav id="sidebar">                    
