@@ -20,9 +20,7 @@ export default class Catalogue extends Component <MyProps,MyState>{
         super(props);
         this.state = { catalogueProducts: [], catalogueCategories: [], cataloguePromotions: [], loading: true };
     }
-    
- 
-    
+        
     componentDidMount(){
         this.listProductsData();
         this.listCategoriesData();
@@ -43,7 +41,7 @@ export default class Catalogue extends Component <MyProps,MyState>{
         
         let cat: any[];
 
-        cat = catalogueCategories.map((c) => (cat = c.categoryName));
+        cat = catalogueCategories.map((c) => ( cat = c.categoryName));
 
         return (
             <>

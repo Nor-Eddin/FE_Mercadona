@@ -62,7 +62,7 @@ export default class Admin extends Component<MyProps, MyState> {
                                         descriptionProduct={product.descriptionProduct}
                                         price={product.price}
                                         image={product.image}
-                                        catId={cat[product.catId]}
+                                        catId={product.catId}
                                         promotion={product.promotions}
                                     />
                                     <AddPromToProduct key={product.idProduct}
@@ -71,7 +71,7 @@ export default class Admin extends Component<MyProps, MyState> {
                                         descriptionProduct={product.descriptionProduct}
                                         price={product.price}
                                         image={product.image}
-                                        catId={cat[product.catId]}
+                                        catId={product.catId}
                                         promotion={product.promotions}
 
                                     />
