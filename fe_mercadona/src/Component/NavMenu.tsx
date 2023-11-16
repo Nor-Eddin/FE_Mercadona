@@ -32,7 +32,7 @@ export default function NavMenu() {
                     <Authorized
                         authorized={
                             <>
-                                <span className="nav-link">Bonjours, {getUserEmail()}</span>
+                                <span className="nav-link">Bonjour, {getUserEmail()}</span>
                                 <NavLink className="navbar-brand" to="/Admin" >Admin</NavLink>
                                 <Button onClick={() => {
                                     logOut();
