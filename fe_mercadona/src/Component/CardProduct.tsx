@@ -27,14 +27,14 @@ export default function CardProduct(props: any) {
             <>
                 
                 <Card style={{ width: '14rem', height:'27rem', borderRadius: 10, fontSize:'1rem'}} className="d-inline-flex m-1 card" >
-                    <Card.Img variant="top" src="https://media.istockphoto.com/id/184276818/fr/photo/pomme-rouge.jpg?s=2048x2048&w=is&k=20&c=fJPExnDOm-czofY8orZKWP3Vn7pQ-66Oubs_mQMVgJ4=" />
+                    <Card.Img variant="top" src="https://media.istockphoto.com/id/184276818/fr/photo/pomme-rouge.jpg?s=2048x2048&w=is&k=20&c=fJPExnDOm-czofY8orZKWP3Vn7pQ-66Oubs_mQMVgJ4=" alt='cardProduct' />
                     <Card.Body >
                         
                         <Card.Title>{props.title}</Card.Title>
                         {
                             props.promotion ?
 
-                                <Card.Title className="text-danger">Prix PROMO
+                                <Card.Title className="text-danger ">Prix PROMO
                                     <strong>  {(Math.round((props.price * (1 - (promo?.tauxPromotion / 100))) * 100)) / 100} &euro;</strong>
                                 </Card.Title> : <Card.Title>Prix : {props.price} &euro; </Card.Title>}
 
