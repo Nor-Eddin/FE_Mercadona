@@ -1,9 +1,9 @@
-module.exports = {
-    presets: [
-      ['@babel/preset-env', {targets: {node: 'current'}}],
-      ['@babel/preset-react', {
-        "runtime": "automatic"
-      }],
-      '@babel/preset-typescript',
-    ],
-  };
+export const plugins = ['babel-plugin-transform-vite-meta-env'];
+export const presets = [
+  '@babel/preset-env', ,
+  '@babel/preset-react',
+  '@babel/preset-typescript',
+  'babel-preset-vite',
+];
+export const sourceType = "unambiguous";
+ 

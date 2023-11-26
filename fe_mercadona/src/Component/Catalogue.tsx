@@ -8,9 +8,7 @@ import { Form, Spinner } from 'react-bootstrap';
 import { productDTO } from '../Models/productDTO.model';
 import { categoryDTO } from '../Models/categoryDTO.model';
 import { promotionDTO } from '../Models/promotionDTO.model';
-
-
-
+import 'whatwg-fetch';
 
 type MyProps = { props:any };
 type MyState = { loading: boolean, catalogueProducts: productDTO[], catalogueCategories: categoryDTO[], cataloguePromotions: promotionDTO[] }
@@ -47,7 +45,7 @@ export default class Catalogue extends Component <MyProps,MyState>{
             <>
                 <div style={{ display: "flex", justifyContent: "center" }} className="m-3">
                     <Form.Group style={{ width: 500,display:"flex", justifyContent: "space-around" }}>
-                        <Form.Select id="categoryFilter" style={{ width: 300 }} autoFocus  >
+                        <Form.Select  id="categoryFilter" style={{ width: 300 }} autoFocus  >
                             <option>Choisissez une categorie a flitrer</option>
                             {catalogueCategories?.map(category =>
                                 <>
@@ -58,7 +56,7 @@ export default class Catalogue extends Component <MyProps,MyState>{
                     </Form.Group>
                 </div>
 
-
+                
                 {catalogueProducts.map(product => (choiseCategory ==="Choisissez une categorie a flitrer"?
                     <CardProduct key={product.idProduct}
                         title={product.productName}
@@ -78,13 +76,14 @@ export default class Catalogue extends Component <MyProps,MyState>{
                         />:<></>))                  
                 )                    
                 }
+               
             </>
         );
     }
     render() {
         
         let contents = this.state.loading
-            ? <p><Spinner animation="border" /><em>En chargement...</em></p>
+            ? <><Spinner animation="border" /><em>En chargement...</em></>
             : Catalogue.renderProductsTable(this.state.catalogueProducts, this.state.catalogueCategories);
 
     return (
@@ -97,19 +96,19 @@ export default class Catalogue extends Component <MyProps,MyState>{
     async listProductsData() {
         const response = await fetch(urlProduct);
         const data = await response.json();
-        this.setState({ catalogueProducts: data, loading: false });
+        this.setState({ catalogueProducts: data as productDTO[], loading: false });
 
     }
     async listCategoriesData() {
         const response = await fetch(urlCategory);
         const data = await response.json();
-        this.setState({ catalogueCategories: data, loading: false });
+        this.setState({ catalogueCategories: data as categoryDTO[], loading: false });
 
     }
     async listPromotionsData() {
         const response = await fetch(urlPromotion);
         const data = await response.json();
-        this.setState({ cataloguePromotions: data, loading: false });
+        this.setState({ cataloguePromotions: data as promotionDTO[], loading: false });
 
     }
 }
